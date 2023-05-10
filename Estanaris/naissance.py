@@ -1,3 +1,9 @@
+# This script is directly linked to naissance.html page
+# "Naissance" means birth
+
+# The players has to answer several questions in order the define the basics attribute and the profession of its
+# character but also its alignment (if he is good/evil, lawful/chaotic)
+
 def creation(player, choix):
     ancestre = choix.get('ancestre')
     print('Ancestre : ' + ancestre)

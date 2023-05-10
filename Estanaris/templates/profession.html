@@ -1,3 +1,6 @@
+<!-- This is the final part of the character creation, the player has to choose an attribute to increase-->
+<!-- And he has to decide if the character please him or not, he can start again if so-->
+
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" href="static/style.css">
@@ -7,7 +10,6 @@
   <body>
     <main>
        <form>
-<!--       <form action="/profession" method="post">-->
         <h1>Profession</h1>
         <br>
         <h2>Votre profession est {{ prof }}</h2>
@@ -27,8 +29,9 @@
 <!--          <br><p>{{ fonction_test }}</p>-->
         </h4>
 
-        <br>
+<!-- 18 points in an attribute is the maximum value at character creation-->
 
+        <br>
         {% if Fo < 18 %}
         <label>
           <input type="radio" name="attribut" value="Force">

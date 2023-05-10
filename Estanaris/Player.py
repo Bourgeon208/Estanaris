@@ -1,8 +1,10 @@
+# This class defines all attribute of the player character
+# It is not yet link to a database
 class Player:
     def __init__(self):
         self.lv = 0
         self.name = ''
-        self.classe = ''
+        self.classe = ''  # classe = profession's combat orientation
         self.profession = ''
         self.soclasse = ''
         self.strength = 10
@@ -14,13 +16,13 @@ class Player:
         self.hp = 1
         self.armor_classe = 10
         self.total_hp = 1
-        self.dv = 0
+        self.dv = 0  # Des de Vie = accumulated hit points depending of the "classe"
         self.reflex = 0
         self.will = 0
         self.fortitude = 0
         self.attack = 0
-        self.dex_attack = 0
-        self.xp = 1000
+        self.dex_attack = 0  # attack roll based on dexterity for ranged and finesse attacks
+        self.xp = 1000  # it always take 1000xp points to level up
         self.alignmentLC = 0
         self.alignmentGE = 0
         self.spell_attribute = None
@@ -93,11 +95,8 @@ class Player:
         total_hp = self.dv + (((self.constitution - 10) % 2) * self.lv)
         return total_hp
 
-    # def increase_attribute(self, increase, attribute):
-    #     self.attribute += increase
     def increase_attribute(self, increase, attribute):
         setattr(self, attribute, getattr(self, attribute) + increase)
 
     def decrease_attribute(self, decrease, attribute):
         setattr(self, attribute, getattr(self, attribute) - decrease)
-

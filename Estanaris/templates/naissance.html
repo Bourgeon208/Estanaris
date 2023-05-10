@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="static/style.css">
+  <head>
+    {% include 'header.html' %}
+  </head>
+  <body>
+    <main>
+      <h1>Naissance</h1>
+      <br><br>
+      <h3>Les Dieux ont disparus il y a peu.</h3>
+      <h3>Sans eux, votre âme désincarnée n'a pas pu rejoindre le plan d'existence qui lui était déstiné.</h3>
+      <h3>Vous voici de retour sur le plan matériel, au pays d'Iséa. </h3>
+      <h3>Une terre principalement peuplée d'humains gouvrnés par de fiers et puissants seigneurs féodaux.</h3>
+      <br><br>
+      <h3>Vôtre esprit cherche désespérément une enveloppe qui pourrait lui convenir.</h3>
+      <h3>Mais quelle sera-t-elle ?</h3>
+      <br><br>
+      <h4>Qui étaient vos ancestres ?</h4>
+
+      <br>
+
+      <form action="/profession" method="post">
+        <label>
+          <input type="radio" name="ancestre" value="Noble" checked>
+          De nobles seigneurs
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="ancestre" value="Riche">
+          De riches marchands
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="ancestre" value="Fidele">
+          Des fidèles des dieux disparus
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="ancestre" value="Misere">
+          Des miséreux
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="ancestre" value="Orc">
+          Les descendant d'un Orc
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="ancestre" value="Elf">
+          Les descendant d'un Elf
+        </label>
+
+        <br><br><br>
+
+        <h4>Au sein de quelle classe sociale avez vous évolué ?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="soclasse" value="Aristocrate" checked>
+          Aristocratique
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="soclasse" value="Bourgeois">
+          Bourgeoise
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="soclasse" value="Roturier">
+          Roturière
+        </label>
+
+        <br><br><br>
+
+        <h4>Si l'on venait à vous provoquer en duel, comment régleriez vous la situation ?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="classe" value="Fighter" checked>
+          Par le sang et l'acier
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="classe" value="Caster">
+          Je ferai appelle à ma magie
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="classe" value="Expert">
+          Par le dialogue ou la ruse
+        </label>
+
+        <br><br><br>
+
+        <h4>Quel était votre rêve étant enfant ?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="reve" value="Renom" checked>
+          Etre aimé et reconnu auprès de tous
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="reve" value="Connaissance">
+          Comprendre tout les mystères de ce monde
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="reve" value="Dieu">
+            Rencontrer une divinité légendaire
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="reve" value="Vivre">
+          Vivre vieux et voir le monde se transformer
+        </label>
+
+        <br><br>
+
+         <label>
+          <input type="radio" name="reve" value="Pouvoir">
+          Etre le plus puissant, héro ou tyran
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="reve" value="Libre">
+          Etre libre et eviter toute souffrance inutile
+        </label>
+
+        <br><br><br>
+
+        <h4>Une personne assez richement vêtue fait malencontreusement tomber sa bourse devant vous sans s'en apercevoir.
+          Comment réagissez vous?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="alignement1" value="L" checked>
+          Je l'interpelle et lui rends sa bourse
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement1" value="N">
+          J'inspecte son contenu et me sers si besoin avant de la lui rendre
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement1" value="C">
+          Je la prends et part aussi vite
+        </label>
+
+        <br><br><br>
+
+        <h4>Un jour alors que vous vous promenez en forêt, vous tombez face à un animal blessé et immobilisé par un piège, que faites vous ?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="alignement2" value="G" checked>
+          Je libère et fait tout pour le soigner
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement2" value="N">
+          Je passe mon chemin, les chasseur aussi ont une famille à nourrir
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement2" value="E">
+          Je torture cette vermine avant de me la cuisiner
+        </label>
+
+        <br><br><br>
+
+        <h4>Votre maison est en proie aux flammes !</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="alignement3" value="G" checked>
+          Je sauve rapidemment mes proches et je retourne braver les flammes pour sauver mon chien également
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement3" value="N">
+          Je sauve mes proches et j'évite de me mettre mortellement en danger
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement3" value="E">
+          Je prends mon or et je me tire !
+        </label>
+
+        <br><br><br>
+
+        <h4>Quel est votre avis sur la société bâtie part les humains ?</h4>
+
+        <br>
+
+        <label>
+          <input type="radio" name="alignement0" value="L" checked>
+          Sans loi ni hiérarchie seul le chaos subsiste
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement0" value="N">
+          Seul un gouvernement juste et compétent peut permettre à tous de vivre pour le mieux
+        </label>
+
+        <br><br>
+
+        <label>
+          <input type="radio" name="alignement0" value="C">
+          Nous sommes nés sans chaînes et vierges d'esprit, jamais rien ne devrait entraver notre liberté
+        </label>
+
+        <br><br><br>
+
+        <button type="submit">Valider</button>
+
+      </form>
+
+
+    </main>
+<!--      <script src="static/script.js"></script>-->
+    <footer>
+      {% include 'footer.html' %}
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="static/style.css">
+  <head>
+    {% include 'header.html' %}
+  </head>
+  <body>
+    <main>
+       <form>
+<!--       <form action="/profession" method="post">-->
+        <h1>Profession</h1>
+        <br>
+        <h2>Votre profession est {{ prof }}</h2>
+        <br>
+        <h4>
+          Votre alignement est
+        <br>
+          Voici vos caractéristiques, laquelle voulez vous augmenter de 2 ? (18 étant le maximum)
+        </h4>
+        <h4>
+          <br>Force        : {{ Fo }}
+          <br>Dextérité    : {{ De }}
+          <br>Constitution : {{ Co }}
+          <br>Intelligence : {{ In }}
+          <br>Sagesse      : {{ Sa }}
+          <br>Charisme     : {{ Ch }}
+<!--          <br><p>{{ fonction_test }}</p>-->
+        </h4>
+
+        <br>
+
+        {% if Fo < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Force">
+          Ma force
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Force" disabled>
+          Ma force
+        </label>
+        {% endif %}
+
+        <br><br>
+
+        {% if De < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Dexterite">
+          Ma dextérité
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Dexterite" disabled>
+          Ma dextérité
+        </label>
+        {% endif %}
+
+        <br><br>
+
+        {% if Co < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Constitution">
+            Ma constitution
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Constitution" disabled>
+          Ma constitution
+        </label>
+        {% endif %}
+
+        <br><br>
+
+        {% if In < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Intelligence">
+          Mon intelligence
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Intelligence" disabled>
+          Ma intelligence
+        </label>
+        {% endif %}
+
+        <br><br>
+
+        {% if Sa < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Sagesse">
+          Ma sagesse
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Sagesse" disabled>
+          Ma sagesse
+        </label>
+        {% endif %}
+
+        <br><br>
+
+        {% if Ch < 18 %}
+        <label>
+          <input type="radio" name="attribut" value="Charisme">
+          Mon charisme
+        </label>
+        {% else %}
+        <label>
+          <input type="radio" name="attribut" value="Charisme" disabled>
+          Ma charisme
+        </label>
+        {% endif %}
+
+        <br><br><br>
+
+        <button onclick="fonction_test()">Valider</button>
+<!--        <button type="submit">Valider</button>-->
+        <button type="submit"><a href="naissance">Recommencer</a></button>
+      </form>
+    </main>
+<!--      <script src="static/script.js"></script>-->
+    <footer>
+      {% include 'footer.html' %}
+    </footer>
+  </body>
+</html>

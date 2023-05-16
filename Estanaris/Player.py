@@ -7,12 +7,16 @@ class Player:
         self.classe = ''  # classe = profession's combat orientation
         self.profession = ''
         self.soclasse = ''
+
+        # Abilities scores
         self.strength = 10
         self.dexterity = 10
         self.constitution = 10
         self.intelligence = 10
         self.wisdom = 10
         self.charisma = 10
+        #
+
         self.hp = 1
         self.armor_classe = 10
         self.total_hp = 1
@@ -28,30 +32,30 @@ class Player:
         self.class_dc = 10
         self.spell_attribute = None
         self.lores = []
-        self.feats = {
-            'magic': [],
-            'combat': [],
-            'skill': []
-        }
-        self.skills = {
-            'acrobaticsD': 0,
-            'arcanaI': 0,
-            'athleticsS': 0,
-            'craftingI': 0,
-            'deceptionC': 0,
-            'diplomacyC': 0,
-            'intimidationC': 0,
-            'loreI': 0,
-            'medecineW': 0,
-            'natureW': 0,
-            'occultismI': 0,
-            'performanceC': 0,
-            'religionW': 0,
-            'societyI': 0,
-            'stealthD': 0,
-            'survivalW': 0,
-            'thieveryD': 0,
-        }
+        self.feats_magic = []
+        self.feats_combat = []
+        self.feats_skill = []
+
+        # Skills
+        # The last letter of each skill indicates its related abilities score (except Constitution)
+        self.acrobaticsD = 0
+        self.arcanaI = 0
+        self.athleticsS = 0
+        self.craftingI = 0
+        self.deceptionC = 0
+        self.diplomacyC = 0
+        self.intimidationC = 0
+        self.loreI = 0
+        self.medecineW = 0
+        self.natureW = 0
+        self.occultismI = 0
+        self.performanceC = 0
+        self.religionW = 0
+        self.societyI = 0
+        self.stealthD = 0
+        self.survivalW = 0
+        self.thieveryD = 0
+        #
 
     def level_up_check(self):
         if self.lv >= 1000:

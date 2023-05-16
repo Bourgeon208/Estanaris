@@ -1,4 +1,4 @@
-# This class defines all attribute of the player character
+# This class defines all attributes of the player character
 # It is not yet link to a database
 class Player:
     def __init__(self):
@@ -25,6 +25,7 @@ class Player:
         self.xp = 1000  # it always take 1000xp points to level up
         self.alignmentLC = 0
         self.alignmentGE = 0
+        self.class_dc = 10
         self.spell_attribute = None
         self.lores = []
         self.feats = {
@@ -33,23 +34,23 @@ class Player:
             'skill': []
         }
         self.skills = {
-            'acrobatics': 0,
-            'arcana': 0,
-            'athletics': 0,
-            'crafting': 0,
-            'deception': 0,
-            'diplomacy': 0,
-            'intimidation': 0,
-            'lore': 0,
-            'medecine': 0,
-            'nature': 0,
-            'occultism': 0,
-            'performance': 0,
-            'religion': 0,
-            'society': 0,
-            'stealth': 0,
-            'survival': 0,
-            'thievery': 0,
+            'acrobaticsD': 0,
+            'arcanaI': 0,
+            'athleticsS': 0,
+            'craftingI': 0,
+            'deceptionC': 0,
+            'diplomacyC': 0,
+            'intimidationC': 0,
+            'loreI': 0,
+            'medecineW': 0,
+            'natureW': 0,
+            'occultismI': 0,
+            'performanceC': 0,
+            'religionW': 0,
+            'societyI': 0,
+            'stealthD': 0,
+            'survivalW': 0,
+            'thieveryD': 0,
         }
 
     def level_up_check(self):
@@ -61,6 +62,7 @@ class Player:
         if self.level_up_check():
             self.decrease_attribute(1000, 'xp')
             self.increase_attribute(1, 'lv')
+            self.add_dv()
             self.attack = self.calculate_attack()
             self.dex_attack = self.calculate_dex_attack()
             self.reflex = self.calculate_save('reflex')
@@ -91,9 +93,50 @@ class Player:
         dex_attack = self.lv + ((self.dexterity - 10) % 2)
         return dex_attack
 
+    def add_dv(self):
+        if self.classe == 'Caster':
+            self.increase_attribute(6, 'dv')
+        elif self.classe == 'Expert':
+            self.increase_attribute(8, 'dv')
+        elif self.classe == 'Fighter':
+            self.increase_attribute(10, 'dv')
+
     def calculate_total_hp(self):
         total_hp = self.dv + (((self.constitution - 10) % 2) * self.lv)
         return total_hp
+
+    def calculate_skill(self, skill):
+        if skill[-1] == 'S':
+            attribute = self.strength
+        elif skill[-1] == 'D':
+            attribute = self.dexterity
+        elif skill[-1] == 'I':
+            attribute = self.intelligence
+        elif skill[-1] == 'W':
+            attribute = self.wisdom
+        elif skill[-1] == 'C':
+            attribute = self.charisma
+        skill_bonus = (self.skill * 2) + ((attribute - 10) % 2) + self.lv
+        return skill_bonus
+
+    def calculate_alignement(self):
+        alignement = ['Neutre', '']
+        if self.alignmentLC >= 1:
+            alignement[0] = 'Loyal'
+        if self.alignmentLC <= -1:
+            alignement[0] = 'Chaotique'
+
+        if self.alignmentGE >= 1:
+            alignement[1] = 'Bon'
+        elif self.alignmentGE <= -1:
+            alignement[1] = 'Mauvais'
+        else:
+            if alignement[0] == 'Neutre':
+                alignement[1] = 'Strict'
+            else:
+                alignement[1] = 'Neutre'
+        alignement = alignement[0] + ' ' + alignement[1]
+        return alignement
 
     def increase_attribute(self, increase, attribute):
         setattr(self, attribute, getattr(self, attribute) + increase)

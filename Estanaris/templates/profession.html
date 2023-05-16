@@ -12,12 +12,17 @@
        <form>
         <h1>Profession</h1>
         <br>
-        <h2>Votre profession est {{ prof }}</h2>
-        <br>
+        <h2>{{ prof }}</h2>
         <h4>
-          Votre alignement est
+          Alignement : {{ alignment }}
         <br>
-          Voici vos caractéristiques, laquelle voulez vous augmenter de 2 ? (18 étant le maximum)
+        <br>
+          Voici vos caractéristiques.
+        <br>
+          Laquelle voulez vous augmenter de 2 ?
+        <br>
+        <br>
+          (18 étant le maximum)
         </h4>
         <h4>
           <br>Force        : {{ Fo }}
@@ -34,7 +39,7 @@
         <br>
         {% if Fo < 18 %}
         <label>
-          <input type="radio" name="attribut" value="Force">
+          <input type="radio" name="attribut" value="Force" checked>
           Ma force
         </label>
         {% else %}
@@ -48,7 +53,11 @@
 
         {% if De < 18 %}
         <label>
-          <input type="radio" name="attribut" value="Dexterite">
+            {% if Fo < 18 %}
+                <input type="radio" name="attribut" value="Dexterite">
+            {% else %}
+                <input type="radio" name="attribut" value="Dexterite" checked>
+            {% endif %}
           Ma dextérité
         </label>
         {% else %}
@@ -116,9 +125,9 @@
 
         <br><br><br>
 
-        <button onclick="fonction_test()">Valider</button>
-<!--        <button type="submit">Valider</button>-->
-        <button type="submit"><a href="naissance">Recommencer</a></button>
+<!--        <button onclick="fonction_test()">Valider</button>-->
+        <button type="submit"><a href="create">Valider</a></button>
+        <button><a href="naissance">Recommencer</a></button>
       </form>
     </main>
 <!--      <script src="static/script.js"></script>-->

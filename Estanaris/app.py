@@ -16,6 +16,7 @@ def naissance():
     player = Player()
     return render_template('naissance.html')
 
+
 # End part of creation and validation or restart creation
 @app.route('/profession', methods=['GET', 'POST'])
 def profession():
@@ -23,9 +24,8 @@ def profession():
     if request.method == 'POST':
         choix = request.form
         creation(player, choix)
-
-        # still in developpement, "Dep" is only a testing value
-        prof = 'Dep'
+        alignment = player.calculate_alignement()
+        prof = getattr(player, 'profession')
         strength = getattr(player, 'strength')
         dexterity = getattr(player, 'dexterity')
         constitution = getattr(player, 'constitution')
@@ -42,14 +42,18 @@ def profession():
         print('Charisma     : ' + str(charisma))
         print('-----------------------')
 
-        return render_template('profession.html', fonction_test=fonction_test(), prof=prof, Fo=strength, De=dexterity,
-                               Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma)
+        return render_template('profession.html', fonction_test=fonction_test(),alignment=alignment, prof=prof, Fo=strength, De=dexterity,
+                               Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma, )
 
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+    global player
+    return render_template('home.html')
 
 def fonction_test():
     global player
     player.increase_attribute(40, 'charisma')
-    return '<html><h1>Estanaris</h1></html>'
+
 
 
 app.run()

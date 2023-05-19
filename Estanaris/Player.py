@@ -4,9 +4,12 @@ class Player:
     def __init__(self):
         self.lv = 0
         self.name = ''
+        self.house_name = ''
         self.classe = ''  # classe = profession's combat orientation
         self.profession = ''
         self.soclasse = ''
+        self.renown = 0
+        self.reputation = 0
 
         # Abilities scores
         self.strength = 10

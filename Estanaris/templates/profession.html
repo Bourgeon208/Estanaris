@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/style1.css">
   <head>
     {% include 'header.html' %}
   </head>
@@ -49,8 +49,6 @@
         </label>
         {% endif %}
 
-        <br><br>
-
         {% if De < 18 %}
         <label>
             {% if Fo < 18 %}
@@ -67,8 +65,6 @@
         </label>
         {% endif %}
 
-        <br><br>
-
         {% if Co < 18 %}
         <label>
           <input type="radio" name="attribut" value="Constitution">
@@ -81,8 +77,6 @@
         </label>
         {% endif %}
 
-        <br><br>
-
         {% if In < 18 %}
         <label>
           <input type="radio" name="attribut" value="Intelligence">
@@ -91,11 +85,9 @@
         {% else %}
         <label>
           <input type="radio" name="attribut" value="Intelligence" disabled>
-          Ma intelligence
+          Mon intelligence
         </label>
         {% endif %}
-
-        <br><br>
 
         {% if Sa < 18 %}
         <label>
@@ -109,8 +101,6 @@
         </label>
         {% endif %}
 
-        <br><br>
-
         {% if Ch < 18 %}
         <label>
           <input type="radio" name="attribut" value="Charisme">
@@ -119,14 +109,21 @@
         {% else %}
         <label>
           <input type="radio" name="attribut" value="Charisme" disabled>
-          Ma charisme
+          Mon charisme
         </label>
         {% endif %}
 
         <br><br><br>
 
+           <h4>Quel est le nom de votre Maison ?</h4>
+           <input type="text" name="chouse_name"><br><br>
+           <h4>Quel est votre nom ?</h4>
+           <input type="text" name="cname"><br><br>
+
+
 <!--        <button onclick="fonction_test()">Valider</button>-->
-        <button type="submit"><a href="create">Valider</a></button>
+        <button type="submit"><a href="adventure">Valider</a></button>
+<!--        <button type="submit">Valider</button>-->
         <button><a href="naissance">Recommencer</a></button>
       </form>
     </main>

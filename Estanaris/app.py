@@ -45,15 +45,19 @@ def profession():
         return render_template('profession.html', fonction_test=fonction_test(),alignment=alignment, prof=prof, Fo=strength, De=dexterity,
                                Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma, )
 
-@app.route('/create', methods=['GET', 'POST'])
-def create():
+@app.route('/adventure', methods=['GET', 'POST'])
+def adventure():
     global player
-    return render_template('home.html')
+    if request.method == 'POST':
+        pass
+    return render_template('adventure.html')\
+
+@app.route('/world_map', methods=['GET', 'POST'])
+def world_map():
+    return render_template('world_map.html')
 
 def fonction_test():
     global player
     player.increase_attribute(40, 'charisma')
-
-
 
 app.run()

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Test{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <pre id="demo5"></pre>
+    <form id="demo4" action="/profession" method="post">
+        <p id="question_count" >0</p>
+        <div id="0">
+            <h3 id="sd">Qui étaient vos ancestres ?</h3>
+            <input type="radio" id="demo1" name="ancestre" value="Noble" checked>
+            <label id="demo2">De nobles seigneurs</label>
+        </div>
+        <div class="" id="1" hidden>
+            <h3>Au sein de quelle classe sociale avez vous évolué ?</h3>
+            <input type="radio" name="soclasse" value="Aristocrate" checked>
+            <label>Aristocratique</label>
+        </div>
+        <div class="" id="2" hidden>
+            <h3>Si l'on venait à vous provoquer en duel, comment régleriez vous la situation ?</h3>
+            <input type="radio" name="classe" value="Fighter" checked>
+            <label>Par le sang et l'acier</label>
+        </div>
+
+    </form>
+    <button onclick="nextQuestion()">Click me</button>
+<!--    <button onclick="myFunction1()">Click me1</button>-->
+    <script>
+
+    function nextQuestion() {
+        x = parseInt(document.getElementById("question_count").innerHTML)
+        document.getElementById(x).hidden = true;
+        document.getElementById(x+1).hidden = false;
+        document.getElementById("question_count").innerHTML = x+1
+    }
+
+<!--    function myFunction() {-->
+<!--      var input = '<input type="radio" name="soclasse" value="Aristocrate">'-->
+<!--      document.getElementById("demo0").innerHTML = "Au sein de quelle classe sociale avez vous évolué ?";-->
+<!--      document.getElementById("demo1").innerHTML = input;-->
+<!--      document.getElementById("demo2").innerHTML = "Aristocratique";-->
+<!--    }-->
+
+<!--    function myFunction1() {-->
+<!--      const E = document.getElementById("demo1");-->
+<!--      document.getElementById("demo5").innerHTML = E.value;-->
+<!--    }-->
+    </script>
+
+{% endblock %}

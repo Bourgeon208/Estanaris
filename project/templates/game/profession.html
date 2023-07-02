@@ -1,0 +1,144 @@
+<!-- This is the final part of the character creation, the player has to choose an attribute to increase-->
+<!-- And he has to decide if the character please him or not, he can start again if so-->
+
+{% extends 'base.html' %}
+
+{% block header %}
+<header>
+    <h1>{% block title %}Naissance{% endblock %}</h1>
+</header>
+{% endblock %}
+
+{% block content %}
+
+
+    <h1>Votre profession est {{ prof }}</h1>
+    <h4>
+      Alignement : {{ alignment }}
+    <br>
+    <br>
+      Quelle caractéristique voulez vous augmenter de 2 ?
+    <br>
+      (18 étant le maximum)
+    </h4>
+
+        <!-- 18 points in an attribute is the maximum value at character creation-->
+    <form action="{{ url_for('game.name') }}" method="post">
+        <br>
+        <div class="question_attribut">
+
+          <label for="Fo" name="attribut" id="Fo">
+            Force
+            <p for="Fo">
+              {{ Fo }}
+            </p>
+            {% if Fo < 18 %}
+            <input type="radio" name="attribut" value="Force" checked>
+            {% else %}
+            <input type="radio" name="attribut" value="Force" disabled>
+            {% endif %}
+          </label>
+
+          <label for="De" name="attribut" id="De">
+            Dextérité
+            <p for="De">
+              {{ De }}
+            </p>
+            {% if Fo < 18 %}
+            <input type="radio" name="attribut" value="Dexterite">
+            {% else %}
+              {% if De < 18 %}
+              <input type="radio" name="attribut" value="Dexterite" checked>
+              {% else %}
+              <input type="radio" name="attribut" value="Dexterite" disabled>
+              {% endif %}
+            {% endif %}
+          </label>
+
+          <label for="Co" name="attribut" id="Co">
+            Constitution
+            <p for="Co">
+              {{ Co }}
+            </p>
+            {% if Co < 18 %}
+            <input type="radio" name="attribut" value="Constitution">
+            {% else %}
+            <input type="radio" name="attribut" value="Constitution" disabled>
+            {% endif %}
+          </label>
+
+          <label for="In" name="attribut" id="In">
+            Intelligence
+            <p for="In">
+              {{ In }}
+            </p>
+            {% if In < 18 %}
+            <input type="radio" name="attribut" value="Intelligence">
+            {% else %}
+            <input type="radio" name="attribut" value="Intelligence" disabled>
+            {% endif %}
+          </label>
+
+          <label for="Sa" name="attribut" id="Sa">
+            Sagesse
+            <p for="Sa">
+              {{ Sa }}
+            </p>
+            {% if Sa < 18 %}
+            <input type="radio" name="attribut" value="Sagesse">
+            {% else %}
+            <input type="radio" name="attribut" value="Sagesse" disabled>
+            {% endif %}
+          </label>
+
+          <label for="Ch" name="attribut" id="Ch">
+            Charisme
+            <p for="Ch">
+              {{ Ch }}
+            </p>
+            {% if Ch < 18 %}
+            <input type="radio" name="attribut" value="Charisme">
+            {% else %}
+            <input type="radio" name="attribut" value="Charisme" disabled>
+            {% endif %}
+          </label>
+
+          <button type="submit">Valider</button>
+
+        </div>
+
+
+<!--        <button><a href="naissance">Recommencer</a></button>-->
+
+          <script>
+            const radioButtons = document.querySelectorAll('label[name="attribut"]');
+            const labels = document.querySelectorAll('p');
+
+            radioButtons.forEach(function(radioButton) {
+              radioButton.addEventListener('mouseover', function() {
+                labels.forEach(function(p) {
+                  if (p.getAttribute('for') === radioButton.id) {
+                    p.textContent = parseInt(p.textContent) + 2;
+                    p.style.color = 'red';
+                    if (p.textContent === '20') {
+                      p.style.textDecoration = 'line-through';
+                    }
+                  }
+                });
+              });
+            });
+
+            radioButtons.forEach(function(radioButton) {
+              radioButton.addEventListener('mouseout', function() {
+                labels.forEach(function(p) {
+                  p.style.color = '';
+                  if (p.getAttribute('for') === radioButton.id) {
+                    p.textContent = parseInt(p.textContent) - 2;
+                  }
+                });
+              });
+            });
+
+          </script>
+    </form>
+{% endblock %}

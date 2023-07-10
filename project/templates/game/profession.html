@@ -4,9 +4,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<header>
     <h1>{% block title %}Naissance{% endblock %}</h1>
-</header>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +12,28 @@
 
     <h1>Votre profession est {{ prof }}</h1>
     <h4>
-      Alignement : {{ alignment }}
+      <div class="conteneur">
+        <div class="objet_vise">Alignement : {{ alignment }}</div>
+        <div class="infobulle">Bien et Mal : <br><br>
+          Votre personnage a une tendance bonne s'il considère le bonheur des autres avant le sien et travaille de
+          manière altruiste pour aider les autres, même ceux qui ne sont pas amis ou famille. <br><br>Ils sont également
+          bons s'ils accordent de la valeur à la protection des autres contre les dangers, même si cela met le
+          personnage en danger. <br><br> Votre personnage a une tendance mauvaise s'il est prêt à nuire à autrui pour
+          son propre bénéfice égoïste, et encore plus s'il prend plaisir à infliger des souffrances. <br><br> Si votre
+          personnage se situe quelque part entre les deux, il est probablement neutre sur cet axe. <br><br> <br><br>
+
+          Loi et Chaos : <br><br>
+          Votre personnage a une tendance légale s'il accorde de la valeur à la cohérence, à la stabilité et à la
+          prévisibilité plutôt qu'à la flexibilité. <br><br> Les personnages légaux ont un système établi dans leur vie,
+          que ce soit en planifiant méticuleusement leurs activités quotidiennes, en suivant attentivement un ensemble
+          de lois officielles ou non officielles, ou en adhérant strictement à un code d'honneur. <br><br> D'autre part,
+          si votre personnage accorde de la valeur à la flexibilité, à la créativité et à la spontanéité plutôt qu'à la
+          cohérence, il a une tendance chaotique - même si cela ne signifie pas qu'il prend des décisions au hasard.
+          <br><br> Les personnages chaotiques estiment que les personnages légaux sont trop rigides pour juger chaque
+          situation selon ses mérites ou profiter des opportunités, tandis que les personnages légaux estiment que les
+          personnages chaotiques sont irresponsables et volatils.
+        </div>
+      </div>
     <br>
     <br>
       Quelle caractéristique voulez vous augmenter de 2 ?
@@ -28,25 +47,45 @@
         <div class="question_attribut">
 
           <label for="Fo" name="attribut" id="Fo">
-            Force
+            <div class="conteneur">
+              <div class="objet_vise">Force</div>
+              <div class="infobulle">La force mesure la puissance physique de votre personnage. <br><br> La force est importante
+                si votre personnage prévoit de s'engager dans des combats corps à corps. <br><br> Votre modificateur de force est
+                ajouté aux jets de touché et de dégâts en mêlée et détermine la capacité de votre personnage à porter
+                des charges.
+              </div>
+            </div>
+            {% if Fo < 18 %}
+            <p for="Fo">
+              {{ Fo + 2 }}
+            </p>
+            <input type="radio" name="attribut" value="Force" checked>
+            {% else %}
             <p for="Fo">
               {{ Fo }}
             </p>
-            {% if Fo < 18 %}
-            <input type="radio" name="attribut" value="Force" checked>
-            {% else %}
             <input type="radio" name="attribut" value="Force" disabled>
             {% endif %}
           </label>
 
           <label for="De" name="attribut" id="De">
-            Dextérité
+            <div class="conteneur">
+              <div class="objet_vise">Dextérité</div>
+              <div class="infobulle">La Dextérité mesure l'agilité, l'équilibre et les réflexes de votre personnage. <br><br> La
+                Dextérité est importante si votre personnage prévoit de faire des attaques avec des armes à distance ou
+                d'utiliser la discrétion pour surprendre les ennemis. <br><br> Votre modificateur de Dextérité est également
+                ajouté à la classe d'armure (CA) de votre personnage et aux jets de sauvegarde de Réflexes.
+              </div>
+            </div>
+            {% if Fo < 18 %}
             <p for="De">
               {{ De }}
             </p>
-            {% if Fo < 18 %}
             <input type="radio" name="attribut" value="Dexterite">
             {% else %}
+            <p for="De">
+              {{ De + 2 }}
+            </p>
               {% if De < 18 %}
               <input type="radio" name="attribut" value="Dexterite" checked>
               {% else %}
@@ -56,7 +95,14 @@
           </label>
 
           <label for="Co" name="attribut" id="Co">
-            Constitution
+            <div class="conteneur">
+              <div class="objet_vise">Constitution</div>
+              <div class="infobulle">La Constitution mesure la santé globale et l'endurance de votre personnage. <br><br>
+                La Constitution est une statistique importante pour tous les personnages, en particulier ceux qui
+                combattent au corps à corps. <br><br> Votre modificateur de Constitution est ajouté à vos points de
+                vie et aux jets de sauvegarde de Fortitude.
+              </div>
+            </div>
             <p for="Co">
               {{ Co }}
             </p>
@@ -68,7 +114,16 @@
           </label>
 
           <label for="In" name="attribut" id="In">
-            Intelligence
+            <div class="conteneur">
+              <div class="objet_vise">Intelligence</div>
+              <div class="infobulle">L'Intelligence mesure la capacité de votre personnage à apprendre et à raisonner.<br><br>
+                Une Intelligence élevée permet à votre personnage d'analyser les situations, de comprendre les schémas,
+                et cela signifie qu'il peut acquérir des compétences supplémentaires et être capable de maîtriser
+                d'autres langues éventuellement. <br><br>
+                L'Intelligence est également la caractéristique principale d'un lanceur de sorts profanes tel que le
+                magicien.
+              </div>
+            </div>
             <p for="In">
               {{ In }}
             </p>
@@ -80,7 +135,14 @@
           </label>
 
           <label for="Sa" name="attribut" id="Sa">
-            Sagesse
+            <div class="conteneur">
+              <div class="objet_vise">Sagesse</div>
+              <div class="infobulle">La Sagesse mesure le bon sens, la conscience et l'intuition de votre personnage. <br><br>
+                Votre modificateur de Sagesse est ajouté à vos jets de Perception et aux jets de sauvegarde de Volonté. <br><br>
+                La Sagesse est également la caractéristique principale d'un lanceur de sorts divins et naturels tel
+                que le prêtre et le druide.
+              </div>
+            </div>
             <p for="Sa">
               {{ Sa }}
             </p>
@@ -92,7 +154,14 @@
           </label>
 
           <label for="Ch" name="attribut" id="Ch">
-            Charisme
+            <div class="conteneur">
+              <div class="objet_vise">Charisme</div>
+              <div class="infobulle">Le Charisme mesure le magnétisme personnel et la force de personnalité de votre
+                personnage. <br><br> Un score élevé de Charisme vous aide à influencer les pensées et les humeurs des
+                autres. <br><br> Le Charisme est également la caractéristique principale d'un lanceur de sorts occultes
+                tel que le barde.
+              </div>
+            </div>
             <p for="Ch">
               {{ Ch }}
             </p>
@@ -103,39 +172,68 @@
             {% endif %}
           </label>
 
+          <br>
+
           <button type="submit">Valider</button>
 
         </div>
 
+        <div class="original_attribut" hidden>
+          <p for="Fo1">
+            {{ Fo1 }}
+          </p>
+          <p for="De1">
+            {{ De1 }}
+          </p>
+          <p for="Co1">
+            {{ Co1 }}
+          </p>
+          <p for="In1">
+            {{ In1 }}
+          </p>
+          <p for="Sa1">
+            {{ Sa1 }}
+          </p>
+          <p for="Ch1">
+            {{ Ch1 }}
+          </p>
+
+        </div>
 
 <!--        <button><a href="naissance">Recommencer</a></button>-->
 
           <script>
+            function replaceContent() {
+              const originalLabels = document.querySelectorAll('.original_attribut p');
+              const questionLabels = document.querySelectorAll('.question_attribut p');
+
+              originalLabels.forEach(function (originalLabel, index) {
+                const questionLabel = questionLabels[index];
+                questionLabel.textContent = originalLabel.textContent;
+                questionLabel.style.color = '';
+              });
+            }
+
             const radioButtons = document.querySelectorAll('label[name="attribut"]');
             const labels = document.querySelectorAll('p');
 
-            radioButtons.forEach(function(radioButton) {
-              radioButton.addEventListener('mouseover', function() {
-                labels.forEach(function(p) {
-                  if (p.getAttribute('for') === radioButton.id) {
-                    p.textContent = parseInt(p.textContent) + 2;
-                    p.style.color = 'red';
-                    if (p.textContent === '20') {
-                      p.style.textDecoration = 'line-through';
-                    }
-                  }
-                });
-              });
-            });
+            radioButtons.forEach(function (radioButton) {
+              radioButton.addEventListener('change', function () {
+                if (radioButton.querySelector('input[type="radio"]').checked) {
+                  replaceContent();
 
-            radioButtons.forEach(function(radioButton) {
-              radioButton.addEventListener('mouseout', function() {
-                labels.forEach(function(p) {
-                  p.style.color = '';
-                  if (p.getAttribute('for') === radioButton.id) {
-                    p.textContent = parseInt(p.textContent) - 2;
-                  }
-                });
+                  labels.forEach(function (p) {
+                    if (p.getAttribute('for') === radioButton.getAttribute('id')) {
+                      let currentContent = parseInt(p.textContent);
+                      currentContent += 2;
+                      p.textContent = currentContent.toString();
+                      if (currentContent === 20) {
+                        p.style.textDecoration = 'line-through';
+                      }
+                      p.style.color = 'red'; // Add this line to set the color property
+                    }
+                  });
+                }
               });
             });
 

@@ -18,7 +18,7 @@
     <h3>Mais quelle sera-t-elle ?</h3>
   </div>
 
-  <form action="{{ url_for('game.profession') }}" method="post">
+  <form action="{{ url_for('game.profession') }}" id="myForm" method="post">
 
   <div id="1" class="question" hidden>
     <h3>Qui étaient vos ancêtres ?</h3>
@@ -224,6 +224,15 @@
         document.getElementById(10).hidden = false;
       }
     }
+
+const form = document.getElementById('myForm');
+const submitButton = document.getElementById('10');
+
+form.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' && event.target !== submitButton) {
+    event.preventDefault();
+  }
+});
   </script>
 
 {% endblock %}

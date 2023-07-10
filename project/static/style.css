@@ -209,3 +209,30 @@ input[type="radio"]:checked + p {
   text-decoration: underline;
 }
 
+.conteneur {
+position: relative;
+overflow: visible;
+}
+
+.conteneur .objet_vise:hover {
+color: red;
+}
+
+.conteneur .infobulle {
+position: absolute;
+top: 8px;
+left: 80px;
+width: 400px;
+height: auto;
+background-color: #C1BFBF;
+opacity: 0;
+visibility: hidden;
+transition: all ease 0.3s;
+}
+
+.conteneur:hover .infobulle {
+opacity: 1;
+visibility: visible;
+z-index: 999;
+transition: all ease 1;
+}

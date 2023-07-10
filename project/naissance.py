@@ -308,3 +308,6 @@ def final_creation(player, choix):
         player.increase_attribute(2, 'wisdom')
     elif attribut == 'Charisme':
         player.increase_attribute(2, 'charisma')
+
+def profession_description(player, prof):
+    return ''

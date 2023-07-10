@@ -53,6 +53,7 @@ def profession():
         naissance.creation(character, choix)
         alignment = character.calculate_alignement()
         prof = getattr(character, 'profession')
+        prof_description = naissance.profession_description(character, prof)
         strength = getattr(character, 'strength')
         dexterity = getattr(character, 'dexterity')
         constitution = getattr(character, 'constitution')
@@ -72,8 +73,9 @@ def profession():
         # except:
         #     print('Error')
 
-    return render_template('game/profession.html', alignment=alignment, prof=prof, Fo=strength, De=dexterity,
-                           Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma)
+    return render_template('game/profession.html', alignment=alignment, prof=prof, prof_description=prof_description ,Fo=strength, De=dexterity,
+                           Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma, Fo1=strength, De1=dexterity,
+                           Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma)
 
 @bp.route('/name', methods=['GET', 'POST'])
 @login_required

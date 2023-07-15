@@ -53,13 +53,17 @@ def profession():
         naissance.creation(character, choix)
         alignment = character.calculate_alignement()
         prof = getattr(character, 'profession')
-        prof_description = naissance.profession_description(character, prof)
+        prof_description = naissance.profession_description(prof)
+        picture_wh = naissance.profession_picture(prof)
         strength = getattr(character, 'strength')
         dexterity = getattr(character, 'dexterity')
         constitution = getattr(character, 'constitution')
         intelligence = getattr(character, 'intelligence')
         wisdom = getattr(character, 'wisdom')
         charisma = getattr(character, 'charisma')
+        print('-----------------------')
+        print('pic_width    : ' + str(picture_wh[0]))
+        print('pic_height   : ' + str(picture_wh[1]))
         print('-----------------------')
         print('Profession   : ' + prof)
         print('Alignment    : ' + alignment)
@@ -73,9 +77,10 @@ def profession():
         # except:
         #     print('Error')
 
-    return render_template('game/profession.html', alignment=alignment, prof=prof, prof_description=prof_description ,Fo=strength, De=dexterity,
-                           Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma, Fo1=strength, De1=dexterity,
-                           Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma)
+    return render_template('game/profession.html', alignment=alignment, prof=prof, prof_description=prof_description,
+                           Fo=strength, De=dexterity,Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma,
+                           Fo1=strength, De1=dexterity, Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma,
+                           pic_width=picture_wh[0], pic_height=picture_wh[1])
 
 @bp.route('/name', methods=['GET', 'POST'])
 @login_required

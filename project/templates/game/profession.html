@@ -4,13 +4,28 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <h1>{% block title %}Naissance{% endblock %}</h1>
+  <style>
+    .classe_image {
+      background-image: url("/static/classes_images/{{ prof }}.webp");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: {{ pic_width }}px;
+      height: {{ pic_height }}px;
+    }
+  </style>
+<!--171,280-->
+  <h1>{% block title %} Naissance {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
 
-    <h1>Votre profession est {{ prof }}</h1>
+    <h1>Votre profession est {{ prof }} :</h1>
+    <div> {{ prof_description }} </div>
+    <br>
+    <br>
+    <div class="classe_image"></div>
+    <br>
     <h4>
       <div class="conteneur">
         <div class="objet_vise">Alignement : {{ alignment }}</div>
@@ -23,14 +38,14 @@
           personnage se situe quelque part entre les deux, il est probablement neutre sur cet axe. <br><br> <br><br>
 
           Loi et Chaos : <br><br>
-          Votre personnage a une tendance légale s'il accorde de la valeur à la cohérence, à la stabilité et à la
-          prévisibilité plutôt qu'à la flexibilité. <br><br> Les personnages légaux ont un système établi dans leur vie,
+          Votre personnage a une tendance loyale s'il accorde de la valeur à la cohérence, à la stabilité et à la
+          prévisibilité plutôt qu'à la flexibilité. <br><br> Les personnages loyaux ont un système établi dans leur vie,
           que ce soit en planifiant méticuleusement leurs activités quotidiennes, en suivant attentivement un ensemble
           de lois officielles ou non officielles, ou en adhérant strictement à un code d'honneur. <br><br> D'autre part,
           si votre personnage accorde de la valeur à la flexibilité, à la créativité et à la spontanéité plutôt qu'à la
           cohérence, il a une tendance chaotique - même si cela ne signifie pas qu'il prend des décisions au hasard.
-          <br><br> Les personnages chaotiques estiment que les personnages légaux sont trop rigides pour juger chaque
-          situation selon ses mérites ou profiter des opportunités, tandis que les personnages légaux estiment que les
+          <br><br> Les personnages chaotiques estiment que les personnages loyaux sont trop rigides pour juger chaque
+          situation selon ses mérites ou profiter des opportunités, tandis que les personnages loyaux estiment que les
           personnages chaotiques sont irresponsables et volatils.
         </div>
       </div>
@@ -51,7 +66,7 @@
               <div class="objet_vise">Force</div>
               <div class="infobulle">La force mesure la puissance physique de votre personnage. <br><br> La force est importante
                 si votre personnage prévoit de s'engager dans des combats corps à corps. <br><br> Votre modificateur de force est
-                ajouté aux jets de touché et de dégâts en mêlée et détermine la capacité de votre personnage à porter
+                ajouté aux jets de touchés et de dégâts en mêlée et détermine la capacité de votre personnage à porter
                 des charges.
               </div>
             </div>
@@ -120,8 +135,8 @@
                 Une Intelligence élevée permet à votre personnage d'analyser les situations, de comprendre les schémas,
                 et cela signifie qu'il peut acquérir des compétences supplémentaires et être capable de maîtriser
                 d'autres langues éventuellement. <br><br>
-                L'Intelligence est également la caractéristique principale d'un lanceur de sorts profanes tel que le
-                magicien.
+                L'Intelligence est également la caractéristique principale d'un lanceur de sorts profanes et occulte
+                tel que le magicien et le barde.
               </div>
             </div>
             <p for="In">
@@ -158,8 +173,7 @@
               <div class="objet_vise">Charisme</div>
               <div class="infobulle">Le Charisme mesure le magnétisme personnel et la force de personnalité de votre
                 personnage. <br><br> Un score élevé de Charisme vous aide à influencer les pensées et les humeurs des
-                autres. <br><br> Le Charisme est également la caractéristique principale d'un lanceur de sorts occultes
-                tel que le barde.
+                autres.
               </div>
             </div>
             <p for="Ch">
@@ -174,6 +188,7 @@
 
           <br>
 
+        <button><a href="{{ url_for('game.start') }}">Recommencer</a></button>
           <button type="submit">Valider</button>
 
         </div>
@@ -200,7 +215,6 @@
 
         </div>
 
-<!--        <button><a href="naissance">Recommencer</a></button>-->
 
           <script>
             function replaceContent() {

@@ -38,14 +38,5 @@ def create_app(test_config=None):
     app.register_blueprint(game.bp)
     app.add_url_rule('/game', endpoint='start')
 
-    # def myFunction(q):
-    #     pass
-
-    # @app.route('/hello')
-    # def hello():
-    #     from flask import render_template
-    #     return render_template('templates/game/test.html')
-
-
     return app
 

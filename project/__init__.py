@@ -36,7 +36,11 @@ def create_app(test_config=None):
 
     from . import game
     app.register_blueprint(game.bp)
-    app.add_url_rule('/game', endpoint='start')
+    app.add_url_rule('/game', endpoint='language')
+
+    from . import game_en
+    app.register_blueprint(game_en.bp)
+    app.add_url_rule('/game_en', endpoint='start')
 
     return app
 

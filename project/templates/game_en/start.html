@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Naissance{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  <p id="question_count" hidden>0</p>
+
+  <div id="0" class="intro">
+      <h3>The Gods have recently disappeared.</h3>
+      <h3>Without them, your disembodied soul couldn't reach the intended plane of existence.</h3>
+      <h3>Here you are, back in the material plane, in the land of Iséa:</h3>
+      <h3>A land mainly populated by humans, ruled by proud and powerful feudal lords.</h3>
+      <br><br>
+      <h3>Your spirit desperately seeks a suitable vessel.</h3>
+      <h3>But what will it be?</h3>
+  </div>
+
+  <form action="{{ url_for('game_en.profession') }}" id="myForm" method="post">
+
+  <div id="1" class="question" hidden>
+    <h3>Who were your ancestors?</h3>
+
+    <label>
+      <input type="radio" name="ancestre" value="Noble" checked>
+      <p>Noble lords</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="ancestre" value="Riche">
+      <p>Wealthy merchants</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="ancestre" value="Fidele">
+      <p>Faithful followers of the disappeared gods</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="ancestre" value="Misere">
+      <p>Destitutes</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="ancestre" value="Orc">
+      <p>Descendants of an Orc</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="ancestre" value="Elf">
+      <p>Descendants of an Elf</p>
+</label><br>
+  </div>
+
+
+  <div id="2" class="question" hidden>
+    <h3>Within which social class did you evolve?</h3>
+
+    <label>
+      <input type="radio" name="soclasse" value="Aristocrate" checked>
+      <p>Aristocratic</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="soclasse" value="Bourgeois">
+      <p>Bourgeois</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="soclasse" value="Roturier">
+      <p>Commoner</p>
+    </label><br>
+  </div>
+
+  <div id="3" class="question" hidden>
+    <h3>If someone were to provoke you to a duel, how would you resolve the situation?</h3>
+
+    <label>
+      <input type="radio" name="classe" value="Fighter" checked>
+      <p>By blood and steel</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="classe" value="Caster">
+      <p>By invoking my magic</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="classe" value="Expert">
+      <p>Through dialogue or cunning</p>
+    </label><br>
+  </div>
+
+  <div id="4" class="question" hidden>
+    <h3>What was your childhood dream?</h3>
+
+    <label>
+      <input type="radio" name="reve" value="Renom" checked>
+      <p>To be loved and recognized by everyone</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="reve" value="Connaissance">
+      <p>To understand all the mysteries of this world</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="reve" value="Dieu">
+      <p>To meet a legendary deity</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="reve" value="Vivre">
+      <p>To live long and witness the world's transformation</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="reve" value="Pouvoir">
+      <p>To be the most powerful, hero or tyrant</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="reve" value="Libre">
+      <p>To be free and avoid unnecessary suffering</p>
+    </label><br>
+  </div>
+
+  <div id="5" class="question" hidden>
+    <h3>A person dressed quite lavishly accidentally drops their purse in front of you. How do you react?</h3>
+
+    <label>
+      <input type="radio" name="alignement1" value="L" checked>
+      <p>I call out to them and return their purse</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement1" value="N">
+      <p>I inspect its contents and help myself if necessary before returning it</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement1" value="C">
+      <p>I take it and quickly leave</p>
+    </label><br>
+  </div>
+
+  <div id="6" class="question" hidden>
+    <h4>One day, while walking in the forest, you come across a wounded animal trapped in a snare. What do you do?</h4>
+
+    <label>
+      <input type="radio" name="alignement2" value="G" checked>
+      <p>I free it and do everything I can to nurse it back to health</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement2" value="N">
+      <p>I walk away, hunters also have families to feed</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement2" value="E">
+      <p>I torture the vermin before cooking and eating it</p>
+    </label><br>
+  </div>
+
+  <div id="7" class="question" hidden>
+    <h3>Your house is engulfed in flames !</h3>
+
+    <label>
+      <input type="radio" name="alignement3" value="G" checked>
+      <p>I quickly save my loved ones and then return to brave the flames to save my dog as well</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement3" value="N">
+      <p>I save my loved ones and avoid putting myself in mortal danger</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement3" value="E">
+      <p>I grab my gold and make my escape!</p>
+    </label><br>
+  </div>
+
+  <div id="8" class="question" hidden>
+    <h3>What is your opinion of the society built by humans ?</h3>
+
+    <label>
+      <input type="radio" name="alignement0" value="L" checked>
+      <p>Without law and hierarchy, only chaos remains</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement0" value="N">
+      <p>Only a just and competent government can allow everyone to live their best lives</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="alignement0" value="C">
+      <p>We were born without chains and with unclouded minds, nothing
+    </label><br><br>
+  </div>
+
+
+
+    <button id="10" type="submit" class="submit_button" hidden>Next</button>
+<!--    <button id="10" type="submit" hidden><a href="{{ url_for('game.profession') }}">Suivant</a></button>-->
+
+  </form>
+
+  <button id="9" onclick="nextQuestion()">Next</button>
+
+
+  <script>
+    function nextQuestion() {
+        x = parseInt(document.getElementById("question_count").innerHTML)
+        document.getElementById(x).hidden = true;
+        document.getElementById(x+1).hidden = false;
+        document.getElementById("question_count").innerHTML = x+1
+        if (x == 7) {
+        document.getElementById(9).hidden = true;
+        document.getElementById(10).hidden = false;
+      }
+    }
+
+const form = document.getElementById('myForm');
+const submitButton = document.getElementById('10');
+
+form.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' && event.target !== submitButton) {
+    event.preventDefault();
+  }
+});
+  </script>
+
+{% endblock %}

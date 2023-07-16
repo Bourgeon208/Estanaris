@@ -8,11 +8,7 @@ from werkzeug.exceptions import abort
 from project.auth import login_required
 from project.db import get_db
 
-bp = Blueprint('game', __name__, url_prefix='/game')
-
-@bp.route('/')
-def language():
-    return render_template('game/language.html')
+bp = Blueprint('game_en', __name__, url_prefix='/game_en')
 
 @bp.route('/start')
 @login_required
@@ -24,40 +20,38 @@ def start():
         'SELECT * FROM character WHERE (user_id = ? AND alive = 1)', (user_id,)
     ).fetchone()
     if not temp_character:
-        return render_template('game/start.html')
+        return render_template('game_en/start.html')
     else:
         global character
         character = player.Player()
         character = temp_character
-        print('Character Row: ' + str(character))
         print('Profession: ' + character['profession'])
-        # return render_template('game/adventure.html')
-        character.player.initialize('fr')
-        return render_template('game/adventure.html', prof=character['profession'])
+        print('Name: ' + character['name'])
+        print('Location: ' + character['location'])
+        print('Level: ' + str(character['lv']))
+        print('Renown: ' + str(character['renown']))
+        print('Character: ' + str(character))
+        character.player.initialize('en')
+        return render_template('game_en/adventure.html', prof=character['profession'])
 
 @bp.route('/map')
 def map():
-    return render_template('game/map.html')
-
-
-@bp.route('/test')
-def test():
-    return render_template('game/test.html')
+    return render_template('game_en/map.html')
 
 # End part of creation and validation or restart creation
 @bp.route('/profession', methods=['GET', 'POST'])
 @login_required
 def profession():
-    # try:
     if request.method == 'POST':
         global character
         character = player.Player()
         choix = request.form
         print('Choix   : ' + str(choix))
         naissance.creation(character, choix)
-        alignment = character.calculate_alignement('fr')
+        alignment = character.calculate_alignement('en')
         prof = getattr(character, 'profession')
-        prof_description = naissance.profession_description(prof, 'fr')
+        prof_en = getattr(character, 'profession_en')
+        prof_description = naissance.profession_description(prof, 'en')
         picture_wh = naissance.profession_picture(prof)
         strength = getattr(character, 'strength')
         dexterity = getattr(character, 'dexterity')
@@ -65,7 +59,7 @@ def profession():
         intelligence = getattr(character, 'intelligence')
         wisdom = getattr(character, 'wisdom')
         charisma = getattr(character, 'charisma')
-        character.initialize('fr')
+        character.initialize('en')
         character.hp = character.total_hp
         print('-----------------------')
         print('pic_width    : ' + str(picture_wh[0]))
@@ -80,10 +74,8 @@ def profession():
         print('Wisdom       : ' + str(wisdom))
         print('Charisma     : ' + str(charisma))
         print('-----------------------')
-        # except:
-        #     print('Error')
 
-    return render_template('game/profession.html', alignment=alignment, prof=prof, prof_description=prof_description,
+    return render_template('game_en/profession.html', alignment=alignment, prof=prof, prof_en=prof_en, prof_description=prof_description,
                            Fo=strength, De=dexterity,Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma,
                            Fo1=strength, De1=dexterity, Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma,
                            pic_width=picture_wh[0], pic_height=picture_wh[1])
@@ -92,13 +84,12 @@ def profession():
 @login_required
 def name():
     if request.method == 'POST':
-        # finish character creation and store it in the database
         choix = request.form
         print('Choix   : ' + str(choix))
         naissance.final_creation(character, choix)
         strength = getattr(character, 'strength')
         print('Strength     : ' + str(strength))
-        return render_template('game/name.html')
+        return render_template('game_en/name.html')
 
 @bp.route('/adventure', methods=['GET', 'POST'])
 @login_required
@@ -137,11 +128,11 @@ def adventure():
             except db.IntegrityError:
                 error = f"House name {chouse_name} is already registered."
             else:
-                return render_template('game/adventure.html')
+                return render_template('game_en/adventure.html')
 
         flash(error)
 
-        return render_template('game/name.html')
+        return render_template('game_en/name.html')
 
 def save_character(character):
     user_id = session.get('user_id')

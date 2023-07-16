@@ -13,13 +13,13 @@
       height: {{ pic_height }}px;
     }
   </style>
-  <h1>{% block title %} Naissance {% endblock %}</h1>
+  <h1>{% block title %} Birth {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
 
-    <h1>Votre profession est {{ prof }} :</h1>
+    <h1>Your profession is {{ prof_en }} :</h1>
     <div> {{ prof_description }} </div>
     <br>
     <br>
@@ -27,47 +27,45 @@
     <br>
     <h4>
       <div class="conteneur">
-        <div class="objet_vise">Alignement : {{ alignment }}</div>
+        <div class="objet_vise">Alignment : {{ alignment }}</div>
         <div class="infobulle">
-          Bien et Mal : <br><br>
-          Votre personnage a une tendance bonne s'il considère le bonheur des autres avant le sien et travaille de
-          manière altruiste pour aider les autres, même ceux qui ne sont pas amis ou famille. <br><br>Ils sont également
-          bons s'ils accordent de la valeur à la protection des autres contre les dangers, même si cela met le
-          personnage en danger. <br><br> Votre personnage a une tendance mauvaise s'il est prêt à nuire à autrui pour
-          son propre bénéfice égoïste, et encore plus s'il prend plaisir à infliger des souffrances. <br><br> Si votre
-          personnage se situe quelque part entre les deux, il est probablement neutre sur cet axe. <br><br> <br><br>
+          Good and Evil : <br><br>
+          Your character has a good alignment if they consider the happiness of others above their own and work
+          selflessly to assist others, even those who aren’t friends and family. <br><br>They are also good if they
+          value protecting others from harm, even if doing so puts the character in danger. <br><br> Your character
+          has an evil alignment if they’re willing to victimize others for their own selfish gain, and even more so
+          if they enjoy inflicting harm. <br><br> If your character falls somewhere in the middle, they’re likely
+          neutral on this axis. <br><br> <br><br>
 
-          Loi et Chaos : <br><br>
-          Votre personnage a une tendance loyale s'il accorde de la valeur à la cohérence, à la stabilité et à la
-          prévisibilité plutôt qu'à la flexibilité. <br><br> Les personnages loyaux ont un système établi dans leur vie,
-          que ce soit en planifiant méticuleusement leurs activités quotidiennes, en suivant attentivement un ensemble
-          de lois officielles ou non officielles, ou en adhérant strictement à un code d'honneur. <br><br> D'autre part,
-          si votre personnage accorde de la valeur à la flexibilité, à la créativité et à la spontanéité plutôt qu'à la
-          cohérence, il a une tendance chaotique - même si cela ne signifie pas qu'il prend des décisions au hasard.
-          <br><br> Les personnages chaotiques estiment que les personnages loyaux sont trop rigides pour juger chaque
-          situation selon ses mérites ou profiter des opportunités, tandis que les personnages loyaux estiment que les
-          personnages chaotiques sont irresponsables et volatils.
+          Law and Chaos : <br><br>
+          Your character has a lawful alignment if they value consistency, stability, and predictability over
+          flexibility. <br><br> Lawful characters have a set system in life, whether it’s meticulously planning
+          day-to-day activities, carefully following a set of official or unofficial laws, or strictly adhering
+          to a code of honor. <br><br> On the other hand, if your character values flexibility, creativity, and
+          spontaneity over consistency, they have a chaotic alignment—though this doesn’t mean they make decisions
+          by choosing randomly. <br><br> Chaotic characters believe that lawful characters are too inflexible to
+          judge each situation by its own merits or take advantage of opportunities, while lawful characters believe
+          that chaotic characters are irresponsible and flighty.
         </div>
       </div>
     <br>
     <br>
-      Quelle caractéristique voulez vous augmenter de 2 ?
+      Which attribute do you want to increase by 2 ?
     <br>
-      (18 étant le maximum)
+      (18 being the maximum)
     </h4>
 
         <!-- 18 points in an attribute is the maximum value at character creation-->
-    <form action="{{ url_for('game.name') }}" method="post">
+    <form action="{{ url_for('game_en.name') }}" method="post">
         <br>
         <div class="question_attribut">
 
           <label for="Fo" name="attribut" id="Fo">
             <div class="conteneur">
-              <div class="objet_vise">Force</div>
-              <div class="infobulle">La force mesure la puissance physique de votre personnage. <br><br> La force est importante
-                si votre personnage prévoit de s'engager dans des combats corps à corps. <br><br> Votre modificateur de force est
-                ajouté aux jets de touchés et de dégâts en mêlée et détermine la capacité de votre personnage à porter
-                des charges.
+              <div class="objet_vise">Strength</div>
+              <div class="infobulle">Strength measures your character’s physical power. <br><br> Strength is important
+                if your character plans to engage in hand-to-hand combat.  <br><br> Your Strength modifier gets added
+                to melee damage rolls and determines how much your character can carry.
               </div>
             </div>
             {% if Fo < 18 %}
@@ -85,11 +83,11 @@
 
           <label for="De" name="attribut" id="De">
             <div class="conteneur">
-              <div class="objet_vise">Dextérité</div>
-              <div class="infobulle">La Dextérité mesure l'agilité, l'équilibre et les réflexes de votre personnage. <br><br> La
-                Dextérité est importante si votre personnage prévoit de faire des attaques avec des armes à distance ou
-                d'utiliser la discrétion pour surprendre les ennemis. <br><br> Votre modificateur de Dextérité est également
-                ajouté à la classe d'armure (CA) de votre personnage et aux jets de sauvegarde de Réflexes.
+              <div class="objet_vise">Dexterity</div>
+              <div class="infobulle">Dexterity measures your character’s agility, balance, and reflexes. <br><br>
+                Dexterity is important if your character plans to make attacks with ranged weapons or use stealth
+                to surprise foes. <br><br> Your Dexterity modifier is also added to your character’s AC and Reflex
+                saving throws.
               </div>
             </div>
             {% if Fo < 18 %}
@@ -112,10 +110,9 @@
           <label for="Co" name="attribut" id="Co">
             <div class="conteneur">
               <div class="objet_vise">Constitution</div>
-              <div class="infobulle">La Constitution mesure la santé globale et l'endurance de votre personnage. <br><br>
-                La Constitution est une statistique importante pour tous les personnages, en particulier ceux qui
-                combattent au corps à corps. <br><br> Votre modificateur de Constitution est ajouté à vos points de
-                vie et aux jets de sauvegarde de Fortitude.
+              <div class="infobulle">Constitution measures your character’s overall health and stamina. <br><br>
+                Constitution is an important statistic for all characters, especially those who fight in close
+                combat. <br><br> Your Constitution modifier is added to your Hit Points and Fortitude saving throws.
               </div>
             </div>
             <p for="Co">
@@ -131,12 +128,11 @@
           <label for="In" name="attribut" id="In">
             <div class="conteneur">
               <div class="objet_vise">Intelligence</div>
-              <div class="infobulle">L'Intelligence mesure la capacité de votre personnage à apprendre et à raisonner.<br><br>
-                Une Intelligence élevée permet à votre personnage d'analyser les situations, de comprendre les schémas,
-                et cela signifie qu'il peut acquérir des compétences supplémentaires et être capable de maîtriser
-                d'autres langues éventuellement. <br><br>
-                L'Intelligence est également la caractéristique principale d'un lanceur de sorts profanes et occulte
-                tel que le magicien et le barde.
+              <div class="infobulle">Intelligence measures how well your character can learn and reason. <br><br>
+                A high Intelligence allows your character to analyze situations and understand patterns, and it means
+                they can become trained in additional skills and might be able to master additional languages.<br><br>
+                Intelligence is also the primary attribute of an arcane and occult spellcaster such as the wizard
+                and the bard.
               </div>
             </div>
             <p for="In">
@@ -151,11 +147,10 @@
 
           <label for="Sa" name="attribut" id="Sa">
             <div class="conteneur">
-              <div class="objet_vise">Sagesse</div>
-              <div class="infobulle">La Sagesse mesure le bon sens, la conscience et l'intuition de votre personnage. <br><br>
-                Votre modificateur de Sagesse est ajouté à vos jets de Perception et aux jets de sauvegarde de Volonté. <br><br>
-                La Sagesse est également la caractéristique principale d'un lanceur de sorts divins et naturels tel
-                que le prêtre et le druide.
+              <div class="objet_vise">Wisdom</div>
+              <div class="infobulle">Wisdom measures your character’s common sense, awareness, and intuition. <br><br>
+                Your Wisdom modifier is added to your Perception and Will saving throws. <br><br>
+                Wisdom is also the primary attribute of a divine and nature spellcaster such as the cleric and the druid.
               </div>
             </div>
             <p for="Sa">
@@ -170,10 +165,9 @@
 
           <label for="Ch" name="attribut" id="Ch">
             <div class="conteneur">
-              <div class="objet_vise">Charisme</div>
-              <div class="infobulle">Le Charisme mesure le magnétisme personnel et la force de personnalité de votre
-                personnage. <br><br> Un score élevé de Charisme vous aide à influencer les pensées et les humeurs des
-                autres.
+              <div class="objet_vise">Charisma</div>
+              <div class="infobulle">Charisma measures your character’s personal magnetism and strength of personality.
+                <br><br> A high Charisma score helps you influence the thoughts and moods of others.
               </div>
             </div>
             <p for="Ch">
@@ -188,8 +182,8 @@
 
           <br>
 
-        <button><a href="{{ url_for('game.start') }}">Recommencer</a></button>
-          <button type="submit">Valider</button>
+        <button><a href="{{ url_for('game.start') }}">Restart</a></button>
+          <button type="submit">Validate</button>
 
         </div>
 

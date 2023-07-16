@@ -1,15 +1,31 @@
 # This class defines all attributes of the player character
 class Player:
     def __init__(self):
+        # In database stats (21)
+        # NOT NULL
         self.lv = 0
         self.name = ''
         self.house = ''
         self.classe = ''  # classe = profession's combat orientation
         self.profession = ''
-        self.soclasse = ''
+        self.profession_en = ''
         self.renown = 0
         self.reputation = 0
         self.alive = 1
+        self.hp = 1
+        self.xp = 1000  # it always takes 1000xp points to level up
+        self.attributes_aggregated = '101010101010'
+        self.skills_aggregated = '000000000000000000'
+        self.dv = 0  # Des de Vie = accumulated hit points depends on the "classe"
+        self.alignmentLC = 0
+        self.alignmentGE = 0
+        self.location = 'Aléhandre'
+        # NULL AUTHORISED
+        self.spell_attribute = None
+        self.feats = []
+        self.spells_known = []
+        self.lores = []
+        # End of the database stats
 
         # Abilities scores
         self.strength = 10
@@ -18,26 +34,22 @@ class Player:
         self.intelligence = 10
         self.wisdom = 10
         self.charisma = 10
-        #
 
-        self.hp = 1
+        # Others stats
+        self.soclasse = ''
         self.armor_classe = 10
         self.total_hp = 1
-        self.dv = 0  # Des de Vie = accumulated hit points depending of the "classe"
         self.reflex = 0
         self.will = 0
         self.fortitude = 0
         self.attack = 0
         self.dex_attack = 0  # attack roll based on dexterity for ranged and finesse attacks
-        self.xp = 1000  # it always take 1000xp points to level up
-        self.alignmentLC = 0
-        self.alignmentGE = 0
+        self.alignment = ['','']
         self.class_dc = 10
-        self.spell_attribute = None
-        self.lores = []
         self.feats_magic = []
         self.feats_combat = []
         self.feats_skill = []
+        self.spells_available = []
 
         # Skills 17
         # The last letter of each skill indicates its related abilities score (except Constitution)
@@ -112,7 +124,8 @@ class Player:
         total_hp = self.dv + (((self.constitution - 10) % 2) * self.lv)
         return total_hp
 
-    def calculate_skill(self, skill):
+    def calculate_skill(self, skill, skill_value):
+        attribute = 0
         if skill[-1] == 'S':
             attribute = self.strength
         elif skill[-1] == 'D':
@@ -123,25 +136,48 @@ class Player:
             attribute = self.wisdom
         elif skill[-1] == 'C':
             attribute = self.charisma
-        skill_bonus = (self.skill * 2) + ((attribute - 10) % 2) + self.lv
+        skill_bonus = (skill_value * 2) + ((attribute - 10) % 2) + self.lv
         return skill_bonus
 
-    def calculate_alignement(self):
-        alignement = ['Neutre', '']
-        if self.alignmentLC >= 1:
-            alignement[0] = 'Loyal'
-        if self.alignmentLC <= -1:
-            alignement[0] = 'Chaotique'
+    def calculate_skill_all(self):
+        return
 
-        if self.alignmentGE >= 1:
-            alignement[1] = 'Bon'
-        elif self.alignmentGE <= -1:
-            alignement[1] = 'Mauvais'
-        else:
-            if alignement[0] == 'Neutre':
-                alignement[1] = 'Strict'
+
+    def calculate_alignement(self, language):
+        alignement = ['','']
+        if language == 'fr' :
+            alignement = ['Neutre', '']
+            if self.alignmentLC >= 1:
+                alignement[0] = 'Loyal'
+            if self.alignmentLC <= -1:
+                alignement[0] = 'Chaotique'
+
+            if self.alignmentGE >= 1:
+                alignement[1] = 'Bon'
+            elif self.alignmentGE <= -1:
+                alignement[1] = 'Mauvais'
             else:
-                alignement[1] = 'Neutre'
+                if alignement[0] == 'Neutre':
+                    alignement[1] = 'Strict'
+                else:
+                    alignement[1] = 'Neutre'
+        elif language == 'en':
+            alignement = ['Neutral', '']
+            if self.alignmentLC >= 1:
+                alignement[0] = 'Lawful'
+            if self.alignmentLC <= -1:
+                alignement[0] = 'Chaotic'
+
+            if self.alignmentGE >= 1:
+                alignement[1] = 'Good'
+            elif self.alignmentGE <= -1:
+                alignement[1] = 'Evil'
+            else:
+                if alignement[0] == 'Neutral':
+                    alignement[0] = 'True'
+                    alignement[1] = 'Neutral'
+                else:
+                    alignement[1] = 'Neutral'
         alignement = alignement[0] + ' ' + alignement[1]
         return alignement
 
@@ -151,5 +187,13 @@ class Player:
     def decrease_attribute(self, decrease, attribute):
         setattr(self, attribute, getattr(self, attribute) - decrease)
 
-    def initialize(self, temp_character):
+    def initialize(self, language):
+        self.armor_classe = self.calculate_armor_class()
+        self.will = self.calculate_save('will')
+        self.reflex = self.calculate_save('reflex')
+        self.fortitude = self.calculate_save('fortitude')
+        self.alignment = self.calculate_alignement(language)
+        self.attack = self.calculate_attack()
+        self.dex_attack = self.calculate_dex_attack()
+        self.total_hp = self.calculate_total_hp()
         return None

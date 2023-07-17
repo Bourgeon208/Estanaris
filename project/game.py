@@ -1,8 +1,8 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
-from . import player
-from . import naissance
+from .classes import player
+from .classes import naissance
 from werkzeug.exceptions import abort
 
 from project.auth import login_required
@@ -28,12 +28,12 @@ def start():
             'SELECT * FROM character WHERE (user_id = ? AND alive = 1)', (user_id,)
         ).fetchone()
         if not temp_character:
-            return render_template(f'game{language}/start.html')
+            return render_template(f'game/{language}/start.html')
         else:
             global character
             character = player.Player()
-            character.initialize(temp_character, 'fr')
-            return render_template(f'game{language}/adventure.html', prof=getattr(character, 'profession'))
+            character.initialize(temp_character, language)
+            return render_template(f'game/{language}/adventure.html', prof=getattr(character, 'profession'))
 
 @bp.route('/map')
 def map():
@@ -55,9 +55,10 @@ def profession():
         choix = request.form
         print('Choix   : ' + str(choix))
         naissance.creation(character, choix)
-        alignment = character.calculate_alignement('fr')
+        alignment = character.calculate_alignement(language)
         prof = getattr(character, 'profession')
-        prof_description = naissance.profession_description(prof, 'fr')
+        prof_en = getattr(character, 'profession_en')
+        prof_description = naissance.profession_description(prof, language)
         picture_wh = naissance.profession_picture(prof)
         strength = getattr(character, 'strength')
         dexterity = getattr(character, 'dexterity')
@@ -65,7 +66,7 @@ def profession():
         intelligence = getattr(character, 'intelligence')
         wisdom = getattr(character, 'wisdom')
         charisma = getattr(character, 'charisma')
-        character.calculate_all('fr')
+        character.calculate_all(language)
         character.hp = character.total_hp
         print('-----------------------')
         print('pic_width    : ' + str(picture_wh[0]))
@@ -81,7 +82,7 @@ def profession():
         print('Charisma     : ' + str(charisma))
         print('-----------------------')
 
-    return render_template('game/profession.html', alignment=alignment, prof=prof, prof_description=prof_description,
+    return render_template(f'game/{language}/profession.html', alignment=alignment, prof=prof, prof_en=prof_en, prof_description=prof_description,
                            Fo=strength, De=dexterity,Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma,
                            Fo1=strength, De1=dexterity, Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma,
                            pic_width=picture_wh[0], pic_height=picture_wh[1])
@@ -95,7 +96,7 @@ def name():
         naissance.final_creation(character, choix)
         strength = getattr(character, 'strength')
         print('Strength     : ' + str(strength))
-        return render_template('game/name.html')
+        return render_template(f'game/{language}/name.html')
 
 @bp.route('/adventure', methods=['GET', 'POST'])
 @login_required
@@ -121,8 +122,8 @@ def adventure():
             except db.IntegrityError:
                 error = f"House name {chouse_name} is already registered."
             else:
-                return render_template('game/adventure.html')
+                return render_template(f'game/{language}/adventure.html')
 
         flash(error)
 
-        return render_template('game/name.html')
+        return render_template(f'game/{language}/name.html')

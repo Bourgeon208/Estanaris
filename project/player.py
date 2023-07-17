@@ -1,4 +1,6 @@
 # This class defines all attributes of the player character
+from flask import session
+from project.db import get_db
 class Player:
     def __init__(self):
         # In database stats (21)
@@ -17,8 +19,8 @@ class Player:
         self.attributes_aggregated = '101010101010'
         self.skills_aggregated = '000000000000000000'
         self.dv = 0  # Des de Vie = accumulated hit points depends on the "classe"
-        self.alignmentLC = 0
-        self.alignmentGE = 0
+        self.alignment_lc = 0
+        self.alignment_ge = 0
         self.location = 'Aléhandre'
         # NULL AUTHORISED
         self.spell_attribute = None
@@ -147,14 +149,14 @@ class Player:
         alignement = ['','']
         if language == 'fr' :
             alignement = ['Neutre', '']
-            if self.alignmentLC >= 1:
+            if self.alignment_lc >= 1:
                 alignement[0] = 'Loyal'
-            if self.alignmentLC <= -1:
+            if self.alignment_lc <= -1:
                 alignement[0] = 'Chaotique'
 
-            if self.alignmentGE >= 1:
+            if self.alignment_ge >= 1:
                 alignement[1] = 'Bon'
-            elif self.alignmentGE <= -1:
+            elif self.alignment_ge <= -1:
                 alignement[1] = 'Mauvais'
             else:
                 if alignement[0] == 'Neutre':
@@ -163,14 +165,14 @@ class Player:
                     alignement[1] = 'Neutre'
         elif language == 'en':
             alignement = ['Neutral', '']
-            if self.alignmentLC >= 1:
+            if self.alignment_lc >= 1:
                 alignement[0] = 'Lawful'
-            if self.alignmentLC <= -1:
+            if self.alignment_lc <= -1:
                 alignement[0] = 'Chaotic'
 
-            if self.alignmentGE >= 1:
+            if self.alignment_ge >= 1:
                 alignement[1] = 'Good'
-            elif self.alignmentGE <= -1:
+            elif self.alignment_ge <= -1:
                 alignement[1] = 'Evil'
             else:
                 if alignement[0] == 'Neutral':
@@ -181,13 +183,8 @@ class Player:
         alignement = alignement[0] + ' ' + alignement[1]
         return alignement
 
-    def increase_attribute(self, increase, attribute):
-        setattr(self, attribute, getattr(self, attribute) + increase)
-
-    def decrease_attribute(self, decrease, attribute):
-        setattr(self, attribute, getattr(self, attribute) - decrease)
-
-    def initialize(self, language):
+    def calculate_all(self, language):
+        # From calculation
         self.armor_classe = self.calculate_armor_class()
         self.will = self.calculate_save('will')
         self.reflex = self.calculate_save('reflex')
@@ -196,4 +193,76 @@ class Player:
         self.attack = self.calculate_attack()
         self.dex_attack = self.calculate_dex_attack()
         self.total_hp = self.calculate_total_hp()
+        return
+
+
+    def increase_attribute(self, increase, attribute):
+        setattr(self, attribute, getattr(self, attribute) + increase)
+
+    def decrease_attribute(self, decrease, attribute):
+        setattr(self, attribute, getattr(self, attribute) - decrease)
+
+    def initialize(self, temp_character, language):
+        # From database
+        self.lv = temp_character['lv']
+        self.name = temp_character['name']
+        self.house = temp_character['house']
+        self.classe = temp_character['classe']
+        self.profession = temp_character['profession']
+        self.profession_en = temp_character['profession_en']
+        self.renown = temp_character['renown']
+        self.reputation = temp_character['reputation']
+        self.alive = 1
+        self.hp = temp_character['hp']
+        self.xp = temp_character['xp']
+        self.attributes_aggregated = temp_character['attribute']
+        self.skills_aggregated = temp_character['skills']
+        self.dv = temp_character['dv']
+        self.alignment_lc = temp_character['alignment_lc']
+        self.alignment_ge = temp_character['alignment_ge']
+        self.location = temp_character['location']
+        self.spell_attribute = temp_character['spell_attribute']
+        self.feats = temp_character['feats']
+        self.spells_known = temp_character['spells_known']
+        self.lores = temp_character['lores']
+        self.calculate_all(language)
         return None
+
+    def db_save_character(self):
+        user_id = session.get('user_id')
+        db = get_db()
+        try:
+            db.execute(
+                "UPDATE character "
+                "SET "
+                "(alive, attribute, profession, profession_en, xp, alignment_lc, alignment_ge, "
+                "location, lv, hp, skills, classe, renown, reputation, dv) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (getattr(self, 'alive'), getattr(self, 'attributes_aggregated'), getattr(self, 'profession'),
+                 getattr(self, 'profession_en'), getattr(self, 'xp'), getattr(self, 'alignment_lc'),
+                 getattr(self, 'alignment_ge'), getattr(self, 'location'), getattr(self, 'lv'),
+                 getattr(self, 'hp'), getattr(self, 'skills_aggregated'), getattr(self, 'classe'),
+                 getattr(self, 'renown'), getattr(self, 'reputation'), getattr(self, 'dv')),
+                "WHERE (user_id = ? AND alive = 1)", (user_id,)
+            )
+            db.commit()
+        except Exception as e:
+            print(e)
+        return
+
+    def db_character_create(self, user_id, cname, chouse_name):
+        db = get_db()
+        db.execute(
+            "INSERT INTO character "
+            "(user_id, alive, name, house, attribute, profession, profession_en, xp, alignment_lc, alignment_ge, "
+            "location, lv, hp, skills, classe, renown, reputation, dv) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (user_id, getattr(self, 'alive'), cname, chouse_name,
+             getattr(self, 'attributes_aggregated'), getattr(self, 'profession'),
+             getattr(self, 'profession_en'), getattr(self, 'xp'), getattr(self, 'alignment_lc'),
+             getattr(self, 'alignment_ge'), getattr(self, 'location'), getattr(self, 'lv'),
+             getattr(self, 'hp'), getattr(self, 'skills_aggregated'), getattr(self, 'classe'),
+             getattr(self, 'renown'), getattr(self, 'reputation'), getattr(self, 'dv'))
+        )
+        db.commit()
+        return

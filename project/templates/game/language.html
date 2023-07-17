@@ -6,6 +6,23 @@
 
 {% block content %}
   <p>Choose your language :</p>
-  <a href="{{ url_for('game.start') }}">Français</a>
-  <a href="{{ url_for('game_en.start') }}">English</a>
+  <form action="{{ url_for('game.start') }}" id="myForm" method="post">
+
+    <div id="1" class="question">
+    <h3>Choose a language / Choisissez une langue</h3>
+
+    <label>
+      <input type="radio" name="language" value="" checked>
+      <p>Français</p>
+    </label><br>
+
+    <label>
+      <input type="radio" name="language" value="_en">
+      <p>English</p>
+    </label><br>
+    </div>
+
+    <button type="submit" class="submit_button">Suivant</button>
+
+  </form>
 {% endblock %}

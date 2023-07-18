@@ -55,23 +55,25 @@ class Player:
 
         # Skills 17
         # The last letter of each skill indicates its related abilities score (except Constitution)
-        self.acrobaticsD = 0
-        self.arcanaI = 0
-        self.athleticsS = 0
-        self.craftingI = 0
-        self.deceptionC = 0
-        self.diplomacyC = 0
-        self.intimidationC = 0
-        self.loreI = 0
-        self.medecineW = 0
-        self.natureW = 0
-        self.occultismI = 0
-        self.performanceC = 0
-        self.religionW = 0
-        self.societyI = 0
-        self.stealthD = 0
-        self.survivalW = 0
-        self.thieveryD = 0
+        self.skills = {
+            'acrobaticsD' : 0,
+            'arcanaI' : 0,
+            'athleticsS' : 0,
+            'craftingI' : 0,
+            'deceptionC' : 0,
+            'diplomacyC' : 0,
+            'intimidationC' : 0,
+            'loreI' : 0,
+            'medecineW' : 0,
+            'natureW' : 0,
+            'occultismI' : 0,
+            'performanceC' : 0,
+            'religionW' : 0,
+            'societyI' : 0,
+            'stealthD' : 0,
+            'survivalW' : 0,
+            'thieveryD' : 0,
+        }
         #
 
     def level_up_check(self):
@@ -91,6 +93,18 @@ class Player:
             self.fortitude = self.calculate_save('fortitude')
             self.total_hp = self.calculate_total_hp()
 
+    def calculate_attributes(self, from_where):
+        if from_where == 'db':
+            self.strength = int(self.attributes_aggregated[0:2])
+            self.dexterity = int(self.attributes_aggregated[2:4])
+            self.constitution = int(self.attributes_aggregated[4:6])
+            self.intelligence = int(self.attributes_aggregated[6:8])
+            self.wisdom = int(self.attributes_aggregated[8:10])
+            self.charisma = int(self.attributes_aggregated[10:12])
+        elif from_where == 'ch':
+            self.attributes_aggregated = str(self.strength) + str(self.dexterity) + str(self.constitution) + \
+                                         str(self.intelligence) + str(self.wisdom) + str(self.charisma)
+        return
     def calculate_save(self, roll):
         attribute = 0
         if roll == 'reflex':
@@ -125,6 +139,19 @@ class Player:
     def calculate_total_hp(self):
         total_hp = self.dv + (((self.constitution - 10) % 2) * self.lv)
         return total_hp
+
+    def calculate_skills(self, from_where):
+        if from_where == 'db':
+            i = 0
+            for skill in self.skills:
+                self.skills[skill] = int(self.skills_aggregated[i])
+                i += 1
+        elif from_where == 'ch':
+            i = 0
+            for skill in self.skills:
+                self.skills_aggregated[i] = str(self.skills[skill] )
+                i += 1
+        return
 
     def calculate_skill(self, skill, skill_value):
         attribute = 0
@@ -185,6 +212,8 @@ class Player:
 
     def calculate_all(self, language):
         # From calculation
+        self.calculate_attributes('db')
+        self.calculate_skills('db')
         self.armor_classe = self.calculate_armor_class()
         self.will = self.calculate_save('will')
         self.reflex = self.calculate_save('reflex')
@@ -195,6 +224,10 @@ class Player:
         self.total_hp = self.calculate_total_hp()
         return
 
+    def increase_skill(self, increase, skill):
+        self.skills[skill] += increase
+    def decrease_skill(self, decrease, skill):
+        self.skills[skill] += decrease
 
     def increase_attribute(self, increase, attribute):
         setattr(self, attribute, getattr(self, attribute) + increase)
@@ -229,6 +262,8 @@ class Player:
         return None
 
     def db_save_character(self):
+        self.calculate_attributes('ch')
+        self.calculate_skills('ch')
         user_id = session.get('user_id')
         db = get_db()
         try:

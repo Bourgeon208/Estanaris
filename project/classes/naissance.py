@@ -93,7 +93,7 @@ def creation(player, choix):
 
 #     Profession calculation
 #     Caster
-    player.increase_attribute(1, 'loreI')
+    player.increase_skill(1, 'loreI')
     if player.classe == 'Caster':
         player.increase_attribute(6, 'dv')
         player.increase_attribute(2, 'dexterity')
@@ -105,8 +105,8 @@ def creation(player, choix):
             player.spell_attribute = 'I'
             player.increase_attribute(2, 'wisdom')
             player.increase_attribute(4, 'intelligence')
-            player.increase_attribute(1, 'arcanaI')
-            player.increase_attribute(1, 'occultismI')
+            player.increase_skill(1, 'arcanaI')
+            player.increase_skill(1, 'occultismI')
             player.lores.append('library')
         elif player.soclasse == 'Aristocrate':
             if player.alignment_ge >= 1 and (reve == 'Dieu' or ancestre == 'Fidele'):
@@ -115,8 +115,8 @@ def creation(player, choix):
                 player.spell_attribute = 'W'
                 player.increase_attribute(4, 'wisdom')
                 player.increase_attribute(2, 'intelligence')
-                player.increase_attribute(1, 'religionW')
-                player.increase_attribute(1, 'societyI')
+                player.increase_skill(1, 'religionW')
+                player.increase_skill(1, 'societyI')
                 player.lores.append('scribing')
             else:
                 player.profession = 'Apprenti Mage'
@@ -124,8 +124,8 @@ def creation(player, choix):
                 player.spell_attribute = 'I'
                 player.increase_attribute(2, 'wisdom')
                 player.increase_attribute(4, 'intelligence')
-                player.increase_attribute(1, 'arcanaI')
-                player.increase_attribute(1, 'craftingI')
+                player.increase_skill(1, 'arcanaI')
+                player.increase_skill(1, 'craftingI')
                 player.lores.append('academia')
         elif player.soclasse == 'Bourgeois':
             if (player.alignment_ge >= 0 and player.alignment_lc >= 0) or (player.alignment_ge >= 1):
@@ -134,8 +134,8 @@ def creation(player, choix):
                 player.spell_attribute = 'W'
                 player.increase_attribute(4, 'wisdom')
                 player.increase_attribute(2, 'intelligence')
-                player.increase_attribute(1, 'religionW')
-                player.increase_attribute(1, 'societyI')
+                player.increase_skill(1, 'religionW')
+                player.increase_skill(1, 'societyI')
                 player.lores.append('scribing')
             else:
             # elif player.alignment_ge <= 0 or (player.alignment_ge <= 0 and player.alignment_lc < 0):
@@ -144,9 +144,9 @@ def creation(player, choix):
                 player.spell_attribute = 'I'
                 player.increase_attribute(2, 'charisma')
                 player.increase_attribute(4, 'intelligence')
-                player.increase_attribute(1, 'deceptionC')
-                player.increase_attribute(1, 'occultismI')
-                player.increase_attribute(1, 'religionW')
+                player.increase_skill(1, 'deceptionC')
+                player.increase_skill(1, 'occultismI')
+                player.increase_skill(1, 'religionW')
         elif player.soclasse == 'Roturier':
             if (player.alignment_ge >= 0 and player.alignment_lc >= 0) or (player.alignment_ge >= 1):
                 player.profession = 'Pèlerin'
@@ -154,9 +154,9 @@ def creation(player, choix):
                 player.spell_attribute = 'W'
                 player.increase_attribute(4, 'wisdom')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'religionW')
-                player.increase_attribute(1, 'survivalW')
-                player.increase_attribute(1, 'natureW')
+                player.increase_skill(1, 'religionW')
+                player.increase_skill(1, 'survivalW')
+                player.increase_skill(1, 'natureW')
             else:
             # elif player.alignment_ge <= 0 or (player.alignment_ge <= 0 and player.alignment_lc < 0):
                 player.profession = 'Cultiste'
@@ -164,9 +164,9 @@ def creation(player, choix):
                 player.spell_attribute = 'I'
                 player.increase_attribute(2, 'charisma')
                 player.increase_attribute(4, 'intelligence')
-                player.increase_attribute(1, 'deceptionC')
-                player.increase_attribute(1, 'occultismI')
-                player.increase_attribute(1, 'religionW')
+                player.increase_skill(1, 'deceptionC')
+                player.increase_skill(1, 'occultismI')
+                player.increase_skill(1, 'religionW')
 #   Fighter
     if player.classe == 'Fighter':
         player.increase_attribute(10, 'dv')
@@ -177,17 +177,17 @@ def creation(player, choix):
             player.profession_en = 'Bandit'
             player.increase_attribute(2, 'dexterity')
             player.increase_attribute(2, 'charisma')
-            player.increase_attribute(1, 'intimidationC')
-            player.increase_attribute(1, 'stealthD')
-            player.increase_attribute(1, 'survivalW')
+            player.increase_skill(1, 'intimidationC')
+            player.increase_skill(1, 'stealthD')
+            player.increase_skill(1, 'survivalW')
         elif player.soclasse == 'Aristocrate':
             if player.alignment_lc >= 1:
                 player.profession = 'Ecuyer'
                 player.profession_en = 'Squire'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'societyI')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'societyI')
                 player.lores.append('heraldry')
                 player.lores.append('warfare')
             else:
@@ -195,8 +195,8 @@ def creation(player, choix):
                 player.profession_en = 'Martial Disciple'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'dexterity')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'acrobaticsD')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'acrobaticsD')
                 player.lores.append('warfare')
         elif player.soclasse == 'Bourgeois':
             if player.alignment_lc >= 1:
@@ -204,16 +204,16 @@ def creation(player, choix):
                 player.profession_en = 'Outrider'
                 player.increase_attribute(2, 'wisdom')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'natureW')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'natureW')
                 player.lores.append('plains')
             else:
                 player.profession = 'Guerrier'
                 player.profession_en = 'Warrior'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'intimidationC')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'intimidationC')
                 player.lores.append('warfare')
         elif player.soclasse == 'Roturier':
             if player.alignment_lc >= 1:
@@ -221,24 +221,24 @@ def creation(player, choix):
                 player.profession_en = 'Guard'
                 player.increase_attribute(2, 'wisdom')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'intimidationC')
-                player.increase_attribute(1, 'diplomacyC')
+                player.increase_skill(1, 'intimidationC')
+                player.increase_skill(1, 'diplomacyC')
                 player.lores.append('legal')
             elif player.alignment_lc < 0 and (ancestre == 'Orc' or (reve == 'Pouvoir' or reve == 'Libre')):
                 player.profession = 'Barbare'
                 player.profession_en = 'Barbarian'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'survivalW')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'survivalW')
                 player.lores.append('plains')
             else:
                 player.profession = 'Gladiateur'
                 player.profession_en = 'Gladiator'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'performanceC')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'performanceC')
                 player.lores.append('warfare')
 #   Expert
     if player.classe == 'Expert':
@@ -251,16 +251,16 @@ def creation(player, choix):
                 player.profession_en = 'Tax Collector'
                 player.increase_attribute(2, 'strength')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'intimidationC')
-                player.increase_attribute(1, 'diplomacyC')
+                player.increase_skill(1, 'intimidationC')
+                player.increase_skill(1, 'diplomacyC')
                 player.lores.append('legal')
             else:
                 player.profession = 'Noble'
                 player.profession_en = 'Noble'
                 player.increase_attribute(2, 'intelligence')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'societyI')
-                player.increase_attribute(1, 'diplomacyC')
+                player.increase_skill(1, 'societyI')
+                player.increase_skill(1, 'diplomacyC')
                 player.lores.append('heraldry')
         elif player.soclasse == 'Bourgeois':
             if player.alignment_lc >= 1 and player.alignment_ge < 1:
@@ -268,40 +268,40 @@ def creation(player, choix):
                 player.profession_en = 'Barrister'
                 player.increase_attribute(2, 'intelligence')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'societyI')
-                player.increase_attribute(1, 'diplomacyC')
+                player.increase_skill(1, 'societyI')
+                player.increase_skill(1, 'diplomacyC')
                 player.lores.append('legal')
             elif player.alignment_lc < 0 and (reve == 'Renom' or reve == 'Libre'):
                 player.profession = 'Artiste'
                 player.profession_en = 'Artist'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'craftingI')
-                player.increase_attribute(1, 'performanceC')
+                player.increase_skill(1, 'craftingI')
+                player.increase_skill(1, 'performanceC')
                 player.lores.append('art')
             elif player.alignment_ge >= 1:
                 player.profession = 'Médecin'
                 player.profession_en = 'Healer'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'wisdom')
-                player.increase_attribute(1, 'medecineW')
-                player.increase_attribute(1, 'craftingI')
+                player.increase_skill(1, 'medecineW')
+                player.increase_skill(1, 'craftingI')
                 player.lores.append('midwifery')
             elif player.alignment_lc < 1 and (ancestre == 'Riche' or reve == 'Libre'):
                 player.profession = 'Marchand'
                 player.profession_en = 'Physician'
                 player.increase_attribute(2, 'intelligence')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'diplomacyC')
-                player.increase_attribute(1, 'deceptionC')
+                player.increase_skill(1, 'diplomacyC')
+                player.increase_skill(1, 'deceptionC')
                 player.lores.append('mercantile')
             else:
                 player.profession = 'Artisan'
                 player.profession_en = 'Artisan'
                 player.increase_attribute(2, 'intelligence')
                 player.increase_attribute(2, 'strength')
-                player.increase_attribute(1, 'athleticsS')
-                player.increase_attribute(1, 'craftingI')
+                player.increase_skill(1, 'athleticsS')
+                player.increase_skill(1, 'craftingI')
                 player.lores.append('guild')
         elif player.soclasse == 'Roturier':
             if player.alignment_lc >= 1:
@@ -309,7 +309,7 @@ def creation(player, choix):
                 player.profession_en = 'Scout'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'wisdom')
-                player.increase_attribute(1, 'survivalW')
+                player.increase_skill(1, 'survivalW')
                 player.lores.append('plains')
                 player.lores.append('forest')
                 player.lores.append('river')
@@ -319,33 +319,33 @@ def creation(player, choix):
                 player.profession_en = 'Acrobat'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'strength')
-                player.increase_attribute(1, 'acrobaticsD')
-                player.increase_attribute(1, 'performanceC')
+                player.increase_skill(1, 'acrobaticsD')
+                player.increase_skill(1, 'performanceC')
                 player.lores.append('circus')
             elif player.alignment_ge >= 1:
                 player.profession = 'Herboriste'
                 player.profession_en = 'Herbalist'
                 player.increase_attribute(2, 'constitution')
                 player.increase_attribute(2, 'wisdom')
-                player.increase_attribute(1, 'natureW')
-                player.increase_attribute(1, 'craftingI')
+                player.increase_skill(1, 'natureW')
+                player.increase_skill(1, 'craftingI')
                 player.lores.append('herbalism')
             elif player.alignment_lc < 1 and (ancestre == 'Riche' or reve == 'Libre'):
                 player.profession = 'Parieur'
                 player.profession_en = 'Gambler'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'charisma')
-                player.increase_attribute(1, 'deceptionC')
-                player.increase_attribute(1, 'stealthD')
+                player.increase_skill(1, 'deceptionC')
+                player.increase_skill(1, 'stealthD')
                 player.lores.append('games')
             else:
                 player.profession = 'Enfant des Rues'
                 player.profession_en = 'Street Urchin'
                 player.increase_attribute(2, 'dexterity')
                 player.increase_attribute(2, 'constitution')
-                player.increase_attribute(1, 'thieveryD')
-                player.increase_attribute(1, 'stealthD')
-                player.increase_attribute(1, 'survivalW')
+                player.increase_skill(1, 'thieveryD')
+                player.increase_skill(1, 'stealthD')
+                player.increase_skill(1, 'survivalW')
 
 def final_creation(player, choix):
     attribut = choix.get('attribut')

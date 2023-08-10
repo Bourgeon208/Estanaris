@@ -1,0 +1,250 @@
+<!-- This is the final part of the character creation, the player has to choose an attribute to increase-->
+<!-- And he has to decide if the character please him or not, he can start again if so-->
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <style>
+    .classe_image {
+      background-image: url("/static/classes_images/{{ prof }}.webp");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: {{ pic_width }}px;
+      height: {{ pic_height }}px;
+    }
+  </style>
+  <h1>{% block title %} Birth {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+
+    <h1>Your profession is {{ prof_en }} :</h1>
+    <div> {{ prof_description }} </div>
+    <br>
+    <br>
+    <div class="classe_image"></div>
+    <br>
+    <h4>
+      <div class="conteneur">
+        <div class="objet_vise">Alignment : {{ alignment }}</div>
+        <div class="infobulle">
+          Good and Evil : <br><br>
+          Your character has a good alignment if they consider the happiness of others above their own and work
+          selflessly to assist others, even those who aren’t friends and family. <br><br>They are also good if they
+          value protecting others from harm, even if doing so puts the character in danger. <br><br> Your character
+          has an evil alignment if they’re willing to victimize others for their own selfish gain, and even more so
+          if they enjoy inflicting harm. <br><br> If your character falls somewhere in the middle, they’re likely
+          neutral on this axis. <br><br> <br><br>
+
+          Law and Chaos : <br><br>
+          Your character has a lawful alignment if they value consistency, stability, and predictability over
+          flexibility. <br><br> Lawful characters have a set system in life, whether it’s meticulously planning
+          day-to-day activities, carefully following a set of official or unofficial laws, or strictly adhering
+          to a code of honor. <br><br> On the other hand, if your character values flexibility, creativity, and
+          spontaneity over consistency, they have a chaotic alignment—though this doesn’t mean they make decisions
+          by choosing randomly. <br><br> Chaotic characters believe that lawful characters are too inflexible to
+          judge each situation by its own merits or take advantage of opportunities, while lawful characters believe
+          that chaotic characters are irresponsible and flighty.
+        </div>
+      </div>
+    <br>
+    <br>
+      Which attribute do you want to increase by 2 ?
+    <br>
+      (18 being the maximum)
+    </h4>
+
+        <!-- 18 points in an attribute is the maximum value at character creation-->
+    <form action="{{ url_for('game.name') }}" method="post">
+        <br>
+        <div class="question_attribut">
+
+          <label for="Fo" name="attribut" id="Fo">
+            <div class="conteneur">
+              <div class="objet_vise">Strength</div>
+              <div class="infobulle">Strength measures your character’s physical power. <br><br> Strength is important
+                if your character plans to engage in hand-to-hand combat.  <br><br> Your Strength modifier gets added
+                to melee damage rolls and determines how much your character can carry.
+              </div>
+            </div>
+            {% if Fo < 18 %}
+            <p for="Fo">
+              {{ Fo + 2 }}
+            </p>
+            <input type="radio" name="attribut" value="Force" checked>
+            {% else %}
+            <p for="Fo">
+              {{ Fo }}
+            </p>
+            <input type="radio" name="attribut" value="Force" disabled>
+            {% endif %}
+          </label>
+
+          <label for="De" name="attribut" id="De">
+            <div class="conteneur">
+              <div class="objet_vise">Dexterity</div>
+              <div class="infobulle">Dexterity measures your character’s agility, balance, and reflexes. <br><br>
+                Dexterity is important if your character plans to make attacks with ranged weapons or use stealth
+                to surprise foes. <br><br> Your Dexterity modifier is also added to your character’s AC and Reflex
+                saving throws.
+              </div>
+            </div>
+            {% if Fo < 18 %}
+            <p for="De">
+              {{ De }}
+            </p>
+            <input type="radio" name="attribut" value="Dexterite">
+            {% else %}
+            <p for="De">
+              {{ De + 2 }}
+            </p>
+              {% if De < 18 %}
+              <input type="radio" name="attribut" value="Dexterite" checked>
+              {% else %}
+              <input type="radio" name="attribut" value="Dexterite" disabled>
+              {% endif %}
+            {% endif %}
+          </label>
+
+          <label for="Co" name="attribut" id="Co">
+            <div class="conteneur">
+              <div class="objet_vise">Constitution</div>
+              <div class="infobulle">Constitution measures your character’s overall health and stamina. <br><br>
+                Constitution is an important statistic for all characters, especially those who fight in close
+                combat. <br><br> Your Constitution modifier is added to your Hit Points and Fortitude saving throws.
+              </div>
+            </div>
+            <p for="Co">
+              {{ Co }}
+            </p>
+            {% if Co < 18 %}
+            <input type="radio" name="attribut" value="Constitution">
+            {% else %}
+            <input type="radio" name="attribut" value="Constitution" disabled>
+            {% endif %}
+          </label>
+
+          <label for="In" name="attribut" id="In">
+            <div class="conteneur">
+              <div class="objet_vise">Intelligence</div>
+              <div class="infobulle">Intelligence measures how well your character can learn and reason. <br><br>
+                A high Intelligence allows your character to analyze situations and understand patterns, and it means
+                they can become trained in additional skills and might be able to master additional languages.<br><br>
+                Intelligence is also the primary attribute of an arcane and occult spellcaster such as the wizard
+                and the bard.
+              </div>
+            </div>
+            <p for="In">
+              {{ In }}
+            </p>
+            {% if In < 18 %}
+            <input type="radio" name="attribut" value="Intelligence">
+            {% else %}
+            <input type="radio" name="attribut" value="Intelligence" disabled>
+            {% endif %}
+          </label>
+
+          <label for="Sa" name="attribut" id="Sa">
+            <div class="conteneur">
+              <div class="objet_vise">Wisdom</div>
+              <div class="infobulle">Wisdom measures your character’s common sense, awareness, and intuition. <br><br>
+                Your Wisdom modifier is added to your Perception and Will saving throws. <br><br>
+                Wisdom is also the primary attribute of a divine and nature spellcaster such as the cleric and the druid.
+              </div>
+            </div>
+            <p for="Sa">
+              {{ Sa }}
+            </p>
+            {% if Sa < 18 %}
+            <input type="radio" name="attribut" value="Sagesse">
+            {% else %}
+            <input type="radio" name="attribut" value="Sagesse" disabled>
+            {% endif %}
+          </label>
+
+          <label for="Ch" name="attribut" id="Ch">
+            <div class="conteneur">
+              <div class="objet_vise">Charisma</div>
+              <div class="infobulle">Charisma measures your character’s personal magnetism and strength of personality.
+                <br><br> A high Charisma score helps you influence the thoughts and moods of others.
+              </div>
+            </div>
+            <p for="Ch">
+              {{ Ch }}
+            </p>
+            {% if Ch < 18 %}
+            <input type="radio" name="attribut" value="Charisme">
+            {% else %}
+            <input type="radio" name="attribut" value="Charisme" disabled>
+            {% endif %}
+          </label>
+
+          <br>
+
+        <button><a href="{{ url_for('game.start') }}">Restart</a></button>
+          <button type="submit">Validate</button>
+
+        </div>
+
+        <div class="original_attribut" hidden>
+          <p for="Fo1">
+            {{ Fo1 }}
+          </p>
+          <p for="De1">
+            {{ De1 }}
+          </p>
+          <p for="Co1">
+            {{ Co1 }}
+          </p>
+          <p for="In1">
+            {{ In1 }}
+          </p>
+          <p for="Sa1">
+            {{ Sa1 }}
+          </p>
+          <p for="Ch1">
+            {{ Ch1 }}
+          </p>
+
+        </div>
+
+
+          <script>
+            function replaceContent() {
+              const originalLabels = document.querySelectorAll('.original_attribut p');
+              const questionLabels = document.querySelectorAll('.question_attribut p');
+
+              originalLabels.forEach(function (originalLabel, index) {
+                const questionLabel = questionLabels[index];
+                questionLabel.textContent = originalLabel.textContent;
+                questionLabel.style.color = '';
+              });
+            }
+
+            const radioButtons = document.querySelectorAll('label[name="attribut"]');
+            const labels = document.querySelectorAll('p');
+
+            radioButtons.forEach(function (radioButton) {
+              radioButton.addEventListener('change', function () {
+                if (radioButton.querySelector('input[type="radio"]').checked) {
+                  replaceContent();
+
+                  labels.forEach(function (p) {
+                    if (p.getAttribute('for') === radioButton.getAttribute('id')) {
+                      let currentContent = parseInt(p.textContent);
+                      currentContent += 2;
+                      p.textContent = currentContent.toString();
+                      if (currentContent === 20) {
+                        p.style.textDecoration = 'line-through';
+                      }
+                      p.style.color = 'red'; // Add this line to set the color property
+                    }
+                  });
+                }
+              });
+            });
+
+          </script>
+    </form>
+{% endblock %}

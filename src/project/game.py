@@ -19,6 +19,7 @@ bp = Blueprint('game', __name__, url_prefix='/game')
 def language():
     return render_template('game/language.html')
 
+
 @bp.route('/start', methods=['GET', 'POST'])
 @login_required
 def start():
@@ -41,6 +42,7 @@ def start():
             return redirect(url_for('game.adventure'))
             # return redirect(url_for(f'game.{language}.adventure'))
 
+
 @bp.route('/map')
 def map():
     return render_template('game/map.html')
@@ -49,6 +51,7 @@ def map():
 @bp.route('/test')
 def test():
     return render_template('game/test.html')
+
 
 # End part of creation and validation or restart creation
 @bp.route('/profession', methods=['GET', 'POST'])
@@ -88,10 +91,12 @@ def profession():
         print('Charisma     : ' + str(charisma))
         print('-----------------------')
 
-    return render_template(f'game/{language}/profession.html', alignment=alignment, prof=prof, prof_en=prof_en, prof_description=prof_description,
-                           Fo=strength, De=dexterity,Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma,
+    return render_template(f'game/{language}/profession.html', alignment=alignment, prof=prof, prof_en=prof_en,
+                           prof_description=prof_description,
+                           Fo=strength, De=dexterity, Co=constitution, In=intelligence, Sa=wisdom, Ch=charisma,
                            Fo1=strength, De1=dexterity, Co1=constitution, In1=intelligence, Sa1=wisdom, Ch1=charisma,
                            pic_width=picture_wh[0], pic_height=picture_wh[1])
+
 
 @bp.route('/name', methods=['GET', 'POST'])
 @login_required
@@ -104,23 +109,10 @@ def name():
         print('Strength     : ' + str(strength))
         return render_template(f'game/{language}/name.html')
 
+
 @bp.route('/adventure', methods=['GET', 'POST'])
 @login_required
 def adventure():
-    rooms = current_app.rooms
-
-    # Create a room
-    room = token_hex(5)
-    rooms[room] = {"members": 0, "messages": []}
-
-    # Set room attributes in current session
-    session["room"] = room
-    session["name"] = character.name
-
-    room = session.get("room")
-    if room is None or session.get("name") is None or room not in rooms:
-        return redirect(url_for("/"))
-
     if request.method == 'POST':
         # finishes character creation and store it in the database
         choix = request.form
@@ -142,12 +134,27 @@ def adventure():
             except db.IntegrityError:
                 error = f"House name {chouse_name} is already registered."
             else:
-                return render_template(f'game/{language}/adventure.html', code=room, name=cname, messages=rooms[room]["messages"])
-
+                create_room(cname)
+                return render_template(f'game/{language}/adventure.html')
         flash(error)
-
         return render_template(f'game/{language}/name.html')
-    return render_template(f'game/{language}/adventure.html', code=room, name='sdd', messages=rooms[room]["messages"])
+    else:
+        create_room(cname=character.name)
+        return render_template(f'game/{language}/adventure.html')
+    # return render_template(f'game/{language}/adventure.html', code=room, name=cname, messages=rooms[room]["messages"])
 
 
-    
+def create_room(cname):
+    rooms = current_app.rooms
+
+    # Create a room
+    room = token_hex(5)
+    rooms[room] = {"members": 0, "messages": []}
+
+    # Set room attributes in current session
+    session["room"] = room
+    session["name"] = cname
+
+    room = session.get("room")
+    if room is None or session.get("name") is None or room not in rooms:
+        return redirect(url_for("/"))

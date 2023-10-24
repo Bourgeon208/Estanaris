@@ -2,7 +2,6 @@ import os
 from flask_socketio import join_room, leave_room, send, SocketIO
 from flask import Flask
 
-# flask --app project run --debug
 def create_app(test_config=None):
     # create and configure the app
     # test_config=None

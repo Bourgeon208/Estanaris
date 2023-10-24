@@ -1,15 +1,13 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session, current_app
 )
-from flask_socketio import join_room, leave_room, send
-from classes import player
-from classes import naissance
-from werkzeug.exceptions import abort
-
-from auth import login_required
-from db import get_db
-
 from secrets import token_hex
+
+from .auth import login_required
+from .classes import player
+from .classes import naissance
+from .db import get_db
+
 
 bp = Blueprint('game', __name__, url_prefix='/game')
 
@@ -113,48 +111,55 @@ def name():
 @bp.route('/adventure', methods=['GET', 'POST'])
 @login_required
 def adventure():
+    main_room = "Aléhandre"
+    create_room(main_room)
+
+    # Character creation
     if request.method == 'POST':
         # finishes character creation and store it in the database
         choix = request.form
         chouse_name = choix.get('chouse_name')
-        cname = choix.get('cname')
+        character_name = choix.get('cname')
         db = get_db()
         error = None
 
         if not chouse_name:
             error = 'House name is required.'
-        elif not cname:
+        elif not character_name:
             error = 'Character name is required.'
-        elif not chouse_name.isalpha() or not cname.isalpha():
+        elif not chouse_name.isalpha() or not character_name.isalpha():
             error = 'Both names must be only in alphabetic letters.'
 
         if error is None:
             try:
-                character.db_character_create(g.user['id'], cname, chouse_name)
+                character.db_character_create(g.user['id'], character_name, chouse_name)
             except db.IntegrityError:
                 error = f"House name {chouse_name} is already registered."
             else:
-                create_room(cname)
+                join_room(main_room, character_name)
                 return render_template(f'game/{language}/adventure.html')
         flash(error)
         return render_template(f'game/{language}/name.html')
+    # If character exists
     else:
-        create_room(cname=character.name)
+        join_room(main_room, character.name)
         return render_template(f'game/{language}/adventure.html')
     # return render_template(f'game/{language}/adventure.html', code=room, name=cname, messages=rooms[room]["messages"])
 
 
-def create_room(cname):
+def join_room(room_name, character_name):
+    """Set room attributes in current session."""
     rooms = current_app.rooms
 
-    # Create a room
-    room = token_hex(5)
-    rooms[room] = {"members": 0, "messages": []}
-
-    # Set room attributes in current session
-    session["room"] = room
-    session["name"] = cname
+    session["room"] = room_name
+    session["name"] = character_name
 
     room = session.get("room")
     if room is None or session.get("name") is None or room not in rooms:
         return redirect(url_for("/"))
+
+def create_room(room_name):
+    """Create a room."""
+    rooms = current_app.rooms
+    rooms[room_name] = {"members": 0, "messages": []}
+

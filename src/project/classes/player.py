@@ -1,6 +1,7 @@
 # This class defines all attributes of the player character
 from flask import session
-from db import get_db
+
+from ..db import get_db
 
 
 class Player:

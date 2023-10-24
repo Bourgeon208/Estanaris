@@ -603,11 +603,13 @@ def profession_description(prof, language):
                           ' step to you.'
 
     return description
+
+
 def profession_picture(prof):
-    picture_wh = [0,0]
-    try :
-        width, height = Image.open('project\static\classes_images\\' + prof + '.webp').size
+    picture_wh = [0, 0]
+    try:
+        width, height = Image.open('src\\project\\static\\classes_images\\' + prof + '.webp').size
         picture_wh = [width * 0.6, height * 0.6]
-    except Exception as e :
+    except Exception as e:
         print(e)
     return picture_wh

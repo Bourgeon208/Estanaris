@@ -26,7 +26,7 @@ of libraries such as Flask.
 3. Install the project
 
     ```commandline
-    python -m pip install .
+    python -m pip install -e .
     ```
 
 4. Start the project

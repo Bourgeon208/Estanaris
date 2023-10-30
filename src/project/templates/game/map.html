@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block header %}
+  <h1 hidden>{% block title %}Map{% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
     <style type="text/css">
     body {
